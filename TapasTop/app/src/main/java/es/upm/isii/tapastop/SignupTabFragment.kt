@@ -34,7 +34,6 @@ class SignupTabFragment : Fragment() {
         confirmPassword = binding.signupConfirmPassword
         signUpBtn = binding.btnSignup
 
-
         return root
     }
 }

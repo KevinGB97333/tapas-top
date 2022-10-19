@@ -2,26 +2,24 @@ package es.upm.isii.tapastop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import es.upm.isii.tapastop.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-	private lateinit var binding : ActivityMainBinding
-	private lateinit var tabLayout : TabLayout
-	private lateinit var viewPager : ViewPager2
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
+
+	private lateinit var binding: ActivityMainBinding
+	private lateinit var navController: NavController
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = ActivityMainBinding.inflate(layoutInflater)
-		setContentView(binding.root)
-		tabLayout = binding.tabLayout
-		viewPager = binding.viewPager
-		tabLayout.addTab(tabLayout.newTab().setText(R.string.login_title))
-		tabLayout.addTab(tabLayout.newTab().setText(R.string.signup_title))
-		tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-		val loginAdapter = LoginAdapter(supportFragmentManager, tabLayout.tabCount)
-		viewPager.adapter =
-		viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-
+		val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+		navController = navHostFragment.navController
 	}
 }
