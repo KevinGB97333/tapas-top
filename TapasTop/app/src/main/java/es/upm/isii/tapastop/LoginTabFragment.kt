@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import es.upm.isii.tapastop.databinding.LoginTabFragmentBinding
 
 class LoginTabFragment : Fragment() {
@@ -16,8 +18,8 @@ class LoginTabFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private lateinit var username : EditText
-    private lateinit var password : EditText
+    private lateinit var username : TextInputLayout
+    private lateinit var password : TextInputLayout
     private lateinit var forgotPassword : TextView
     private lateinit var loginBtn : Button
     private val alpha =  0F
