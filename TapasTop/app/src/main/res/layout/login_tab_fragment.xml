@@ -24,28 +24,35 @@
         android:drawablePadding="20dp"
         android:background="@drawable/edit_text_bg"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_password"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias=".5"
         android:hint="@string/password_hint"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:layout_marginTop="20dp"
+        app:boxBackgroundColor="@color/teal_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_username"
-        app:backgroundTint="@null"
-        android:background="@drawable/edit_text_bg"
-        android:drawableStart="@drawable/ic_password_lock"
-        android:drawablePadding="20dp"
-        android:drawableTint="@color/teal_700"
-        />
+        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias=".5"
+        app:startIconDrawable="@drawable/ic_password_lock"
+        app:endIconMode="password_toggle"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_bg"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
     
     <Button
         android:id="@+id/btn_login"
