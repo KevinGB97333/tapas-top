@@ -1,23 +1,24 @@
 package es.upm.isii.tapastop
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
 
-class LoginAdapter(private val fm : FragmentManager, var totalTbs : Int) :  FragmentPagerAdapter(fm){
+class LoginAdapter(fm: FragmentManager, var totalTbs: Int) :  FragmentStateAdapter(fm){
     private var totalTabs : Int = totalTbs
-    override fun getCount(): Int {
+
+    override fun getItemCount(): Int {
         return totalTabs
     }
 
-    override fun getItem(position: Int): Fragment {
-        var fragment : Fragment = Fragment()
-        when(position){
-            0 -> fragment =  LoginTabFragment()
-            1 -> fragment = SignupTabFragment()
+    override fun createFragment(position: Int): Fragment {
+
+        return when(position){
+            0 -> LoginTabFragment()
+            1 -> SignupTabFragment()
+            else -> Fragment()
         }
-        return fragment
     }
 }
