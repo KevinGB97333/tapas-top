@@ -5,12 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="?attr/textInputOutlinedStyle"
+        style="@style/OutlinedRoundedBox"
         android:id="@+id/login_username"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
@@ -23,11 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/ic_username"
-        app:startIconTint="@color/teal_700"
-        app:hintTextColor="@color/black"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:boxStrokeColor="@color/teal_700"
-        >
+        app:startIconTint="?attr/colorSecondaryVariant">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_username_text"
@@ -37,15 +29,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="?attr/textInputOutlinedStyle"
+        style="@style/OutlinedRoundedBox"
         android:id="@+id/login_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/password_hint"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:layout_marginTop="20dp"
@@ -57,12 +45,9 @@
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias=".5"
         app:startIconDrawable="@drawable/ic_password_lock"
-        app:startIconTint="@color/teal_700"
+        app:startIconTint="?attr/colorSecondaryVariant"
         app:endIconMode="password_toggle"
-        app:endIconTint="@color/teal_700"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:hintTextColor="@color/black"
-        app:boxStrokeColor="@color/teal_700">
+        app:endIconTint="?attr/colorSecondaryVariant">
         <com.google.android.material.textfield.TextInputEditText
 
             android:layout_width="match_parent"
