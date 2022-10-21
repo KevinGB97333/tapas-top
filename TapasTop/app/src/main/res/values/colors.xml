@@ -9,4 +9,5 @@
     <color name="blue_700">#2962ff</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_withe">#F1F5FA</color>
 </resources>

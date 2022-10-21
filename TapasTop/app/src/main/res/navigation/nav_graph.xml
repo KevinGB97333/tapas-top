@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/initialFragment"
         android:name="es.upm.isii.tapastop.InitialFragment"
-        android:label="InitialFragment" />
+        android:label="InitialFragment" >
+        <action
+            android:id="@+id/action_initialFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="es.upm.isii.tapastop.MainMenuFragment"
+        android:label="MainMenuFragment" />
 </navigation>

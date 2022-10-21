@@ -7,18 +7,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import es.upm.isii.tapastop.databinding.SignupTabFragmentBinding
+import com.google.android.material.textfield.TextInputLayout
+import es.upm.isii.tapastop.databinding.FragmentSignupTabBinding
 
 class SignupTabFragment : Fragment() {
 
-    private var _binding : SignupTabFragmentBinding?=null
+    private var _binding : FragmentSignupTabBinding?=null
 
     private val binding get() = _binding!!
 
-    private lateinit var username : EditText
-    private lateinit var email : EditText
-    private lateinit var password : EditText
-    private lateinit var confirmPassword : EditText
+    private lateinit var username : TextInputLayout
+    private lateinit var email : TextInputLayout
+    private lateinit var password : TextInputLayout
+    private lateinit var confirmPassword : TextInputLayout
     private lateinit var signUpBtn : Button
     private val alpha =  0F
     override fun onCreateView(
@@ -26,7 +27,7 @@ class SignupTabFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = SignupTabFragmentBinding.inflate(inflater,container,false)
+        _binding = FragmentSignupTabBinding.inflate(inflater,container,false)
         val root = binding.root
         username = binding.signupUsername
         email = binding.signupEmail

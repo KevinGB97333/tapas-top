@@ -11,10 +11,10 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import es.upm.isii.tapastop.databinding.InitalFragmentBinding
+import es.upm.isii.tapastop.databinding.FragmentInitialBinding
 
 class InitialFragment : Fragment() {
-    private var _binding : InitalFragmentBinding?= null
+    private var _binding : FragmentInitialBinding?= null
     private val binding get() = _binding!!
     private lateinit var loginAdapter: LoginAdapter
 	private lateinit var tabLayout : TabLayout
@@ -24,7 +24,7 @@ class InitialFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = InitalFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentInitialBinding.inflate(inflater, container, false)
         val root : View = binding.root
         return root
     }

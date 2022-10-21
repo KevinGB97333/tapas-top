@@ -8,13 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import es.upm.isii.tapastop.databinding.LoginTabFragmentBinding
+import es.upm.isii.tapastop.databinding.FragmentLoginTabBinding
 
 class LoginTabFragment : Fragment() {
 
-    private var _binding : LoginTabFragmentBinding?=null
+    private var _binding : FragmentLoginTabBinding?=null
 
     private val binding get() = _binding!!
 
@@ -28,7 +29,7 @@ class LoginTabFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = LoginTabFragmentBinding.inflate(inflater,container,false)
+        _binding = FragmentLoginTabBinding.inflate(inflater,container,false)
         val root = binding.root
         username = binding.loginUsername
         password = binding.loginPassword
@@ -71,5 +72,14 @@ class LoginTabFragment : Fragment() {
             .setStartDelay(700)
             .start()
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            loginBtn.setOnClickListener{
+                findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+            }
+        }
     }
 }
