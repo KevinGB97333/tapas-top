@@ -8,4 +8,11 @@
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="forgot_password">Forgot password</string>
     <string name="main_menu">Main Menu</string>
+    <string name="profile_title">Profile</string>
+    <string name="favorites_title">Favorites</string>
+    <string name="top_title">Top 5</string>
+    <string name="awards_title">Awards</string>
+    <string name="last_5_title">Last 5</string>
+    <string name="view_all_title">View all</string>
+    <string name="view_profile_title">View profile</string>
 </resources>

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_withe">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,12 +35,211 @@
             android:fontFamily="@font/brandon_grotesque_black"
             android:textAllCaps="true"
             android:padding="10dp"/>
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/button_bg">
 
-        </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                app:cardBackgroundColor="@color/teal_700"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/teal_700">
+
+                <TextView
+                    android:id="@+id/username_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_above="@id/user_photo_main_menu"
+                    android:layout_alignEnd="@id/user_photo_main_menu"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey_900"
+                    tools:text="Kevin97333" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_photo_main_menu"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="centerCrop"
+                    android:elevation="10dp"
+                    tools:src="@drawable/img_example2" />
+
+                <TextView
+                    android:id="@+id/user_stats_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/user_photo_main_menu"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_toEndOf="@id/username_main_menu"
+                    android:elevation="8dp"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey_900"
+                    android:textSize="30sp"
+                    tools:text="Stats" />
+                <Button
+                    android:id="@+id/view_profile_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/view_profile_title"
+                    android:fontFamily="@font/brandon_grotesque_black"
+                    android:textColor="@color/grey_900"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:cardBackgroundColor="@color/cyan_700"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/cyan_700">
+                <TextView
+                    android:id="@+id/favorite_title_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/favorite_ic_main_menu"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/favorites_title"
+                    android:textColor="@color/grey_900"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"
+                    />
+                <ImageView
+                    android:id="@+id/favorite_ic_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_favorite"
+                    android:elevation="10dp"/>
+                <TextView
+                    android:id="@+id/top_5_title_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/favorite_title_main_menu"
+                    android:layout_above="@id/favorite_ic_main_menu"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"
+                    android:textSize="30sp"
+                    android:textColor="@color/grey_900"
+                    android:text="@string/top_title"/>
+                <Button
+                    android:id="@+id/favorite_view_all_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_all_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/brandon_grotesque_black"
+                    android:textColor="@color/grey_900"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:cardBackgroundColor="@color/blue_400"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/button_bg"
+                android:backgroundTint="@color/blue_400">
+                <TextView
+                    android:id="@+id/awards_title_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/award_ic_main_menu"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/awards_title"
+                    android:textColor="@color/grey_900"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"/>
+                <ImageView
+                    android:id="@+id/award_ic_main_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/ic_award"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/awards_title_main_menu"
+                    android:layout_above="@id/award_ic_main_menu"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/brandon_grotesque_bold_italic"
+                    android:text="@string/last_5_title"
+                    android:textSize="30sp"
+                    android:textColor="@color/grey_900"
+                    />
+                <Button
+                    android:id="@+id/awards_view_all_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_all_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/brandon_grotesque_black"
+                    android:textColor="@color/grey_900"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+            <!--
+          <TextView
+                      <TextView
+                android:id="@+id/profile_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_title"
+                android:textSize="27sp"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textAllCaps="true"
+                android:paddingLeft="10dp"/>
+
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              tools:text="Username"
+              />-->
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
