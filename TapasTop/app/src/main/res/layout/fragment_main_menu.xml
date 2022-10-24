@@ -66,13 +66,14 @@
                         android:layout_above="@id/user_photo_main_menu"
                         android:layout_alignEnd="@id/user_photo_main_menu"
                         android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginBottom="4dp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/brandon_grotesque_bold_italic"
                         android:textAlignment="center"
                         android:textColor="@color/grey_900"
                         android:text="@{viewModel.username.toString()}"
-                        tools:text="Kevin97333" />
+                        tools:text="Kevin" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/user_photo_main_menu"
@@ -91,6 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_above="@id/user_photo_main_menu"
+                        android:paddingTop="1dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginBottom="4dp"
                         android:layout_toEndOf="@id/username_main_menu"
@@ -186,9 +188,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:drawableRight="@drawable/ic_award"
                         android:text="@string/awards_title"
                         android:textColor="@color/grey_900"
