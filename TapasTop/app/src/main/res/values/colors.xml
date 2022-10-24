@@ -15,4 +15,5 @@
     <color name="light_white">#F1F5FA</color>
     <color name="yellow_award">#FFD05C</color>
     <color name="red_500">#f44336</color>
+    <color name="amber_900">#ff6f00</color>
 </resources>
