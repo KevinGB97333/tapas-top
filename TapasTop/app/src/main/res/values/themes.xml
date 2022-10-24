@@ -12,7 +12,9 @@
         <!-- Status bar color. -->
         <!-- Status bar style -->
         <!-- Customize your theme here. -->
+        <item name="errorTextColor">@color/red_700</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 </resources>
