@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import es.upm.isii.tapastop.databinding.FragmentLoginTabBinding
 
@@ -23,7 +23,11 @@ class LoginTabFragment : Fragment() {
     private lateinit var password : TextInputLayout
     private lateinit var forgotPassword : TextView
     private lateinit var loginBtn : Button
-    private val alpha =  0F
+
+    private lateinit var usernameAnimation : Animation
+    private lateinit var passwordAnimation : Animation
+    private lateinit var loginAnimation : Animation
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,40 +41,15 @@ class LoginTabFragment : Fragment() {
         loginBtn = binding.btnLogin
 
         //Animations
-        username.translationX = 800F
-        password.translationX = 800F
-        forgotPassword.translationX = 800F
-        loginBtn.translationX = 800F
+        usernameAnimation = AnimationUtils.loadAnimation(activity,R.anim.start_username_field_anim)
+        passwordAnimation = AnimationUtils.loadAnimation(activity, R.anim.start_password_field_anim)
+        loginAnimation = AnimationUtils.loadAnimation(activity, R.anim.start_button_anim)
 
-        username.alpha = alpha
-        password.alpha = alpha
-        forgotPassword.alpha = alpha
-        loginBtn.alpha = alpha
+        username.startAnimation(usernameAnimation)
+        password.startAnimation(passwordAnimation)
+        forgotPassword.startAnimation(passwordAnimation)
+        loginBtn.startAnimation(loginAnimation)
 
-        username.animate()
-            .translationX(0F)
-            .alpha(1F)
-            .setDuration(800)
-            .setStartDelay(300)
-            .start()
-        password.animate()
-            .translationX(0F)
-            .alpha(1F)
-            .setDuration(800)
-            .setStartDelay(500)
-            .start()
-        forgotPassword.animate()
-            .translationX(0F)
-            .alpha(1F)
-            .setDuration(800)
-            .setStartDelay(500)
-            .start()
-        loginBtn.animate()
-            .translationX(0F)
-            .alpha(1F)
-            .setDuration(800)
-            .setStartDelay(700)
-            .start()
         return root
     }
 
