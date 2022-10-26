@@ -19,4 +19,7 @@
     <string name="passwords_unmatch_msg">Passwords are not the same</string>
     <string name="invalid_mail_msg">Invalid email</string>
     <string name="stats_title">Stats</string>
+    <string name="edit_title">Edit</string>
+    <string name="name_textview">Name</string>
+    <string name="username_textview">Username</string>
 </resources>
