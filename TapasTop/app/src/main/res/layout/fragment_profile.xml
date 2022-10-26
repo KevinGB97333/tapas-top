@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="es.upm.isii.tapastop.model.UserViewModel" />
+    </data>
+        
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,6 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:src="@{viewModel.userProfileImg}"
                 tools:src="@drawable/profile_pic_male" />
 
             <TextView
@@ -31,6 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_img"
+                android:text="@{viewModel.username.toString()}"
                 tools:text="Kevin"
                 android:layout_marginTop="10dp"/>
 
@@ -54,6 +62,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_textview_title"
+                android:text="@{viewModel.name.toString()}"
                 tools:text="Kevin guapo" />
 
             <TextView
@@ -76,6 +85,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email_textview_title"
+                android:text="@{viewModel.userEmail.toString()}"
                 tools:text="kevin@gmail.com" />
 
             <TextView
@@ -98,6 +108,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gender_textview_title"
+                android:text="@{viewModel.gender.toString()}"
                 tools:text="Male" />
 
             <TextView
@@ -120,6 +131,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/country_textview_title"
+                android:text="@{viewModel.country.toString()}"
                 tools:text="Spain" />
 
             <TextView
@@ -142,6 +154,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location_textview_title"
+                android:text="@{viewModel.location.toString()}"
                 tools:text="Ubicacion" />
 
             <TextView
@@ -164,6 +177,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_textview_title"
+                android:text="@{viewModel.description.toString()}"
                 tools:text="Descripcion" />
 
             <TextView
@@ -186,6 +200,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/degustation_textview_title"
+                android:text="@{viewModel.degustationAdded.toString()}"
                 tools:text="Numero de degustaciones introducidas" />
 
             <TextView
@@ -208,6 +223,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locals_textview_title"
+                android:text="@{viewModel.localsAdded.toString()}"
                 tools:text="Numero de locales introducidos" />
 
             <TextView
@@ -230,6 +246,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/requests_textview_title"
+                android:text="@{viewModel.friendRequests.toString()}"
                 tools:text="Solicitudes pendientes" />
 
             <TextView
@@ -252,6 +269,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/awards_textview_title"
+                android:text="@{viewModel.awards.toString()}"
                 tools:text="Numero de galardones" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -92,13 +94,24 @@ class LoginTabFragment : Fragment() {
             }
         }
     }
-    private fun validateFields(){
+    private fun validateFields() {
         val username = usernameET.text.toString().trim()
         val password = passwordET.text.toString().trim()
         val emptyFields = checkEmptyFields(username, password)
-        if(!emptyFields){
+        if (!emptyFields) {
             sharedViewModel.setUsername(username)
-            findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+            if (!sharedViewModel.hasGenderSet()) {
+                sharedViewModel.setGender(getString(R.string.gender_male))
+            }
+            if (!sharedViewModel.hasProfilePicSet()) {
+                ResourcesCompat.getDrawable(
+                    requireActivity().resources,
+                    R.drawable.profile_pic_male,
+                    null
+                )
+                    ?.let { sharedViewModel.setProfileImage(it) }
+                findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+            }
         }
     }
     private fun checkEmptyFields(username : String , password : String) : Boolean{

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -39,6 +40,7 @@ class SignupTabFragment : Fragment() {
     //Sign Up Button
 	private lateinit var signUpBtn: Button
 
+	private val sharedViewModel : UserViewModel by activityViewModels()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -111,28 +113,37 @@ class SignupTabFragment : Fragment() {
 		val confirmPassword = confirmPasswordET.text.toString().trim()
 		if (!checkEmptyFields(username, email, password, confirmPassword)) {
 
-            val validUsername = isValidUsername(username)
+			val validUsername = isValidUsername(username)
 			val emailValid = isValidEmail(email)
-            if(!emailValid){
-                emailTL.error = getString(R.string.invalid_mail_msg)
-            }else{
-                emailTL.error = null
-            }
-            val passwords = isSamePassword(password, confirmPassword)
-            if (!passwords) {
-                confirmPasswordTL.error = getString(R.string.passwords_unmatch_msg)
-            } else {
-                confirmPasswordTL.error = null
-            }
+			if (!emailValid) {
+				emailTL.error = getString(R.string.invalid_mail_msg)
+			} else {
+				emailTL.error = null
+			}
+			val passwords = isSamePassword(password, confirmPassword)
+			if (!passwords) {
+				confirmPasswordTL.error = getString(R.string.passwords_unmatch_msg)
+			} else {
+				confirmPasswordTL.error = null
+			}
 
-            if(validUsername && emailValid && passwords){
-				shareViewModel.setUsername(username.trim())
-				shareViewModel.setEmail(email.trim())
-
-                findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
-            }
+			if (validUsername && emailValid && passwords) {
+				shareViewModel.setUsername(username)
+				shareViewModel.setEmail(email)
+				if (!sharedViewModel.hasGenderSet()) {
+					sharedViewModel.setGender(getString(R.string.gender_male))
+				}
+				if (!sharedViewModel.hasProfilePicSet()) {
+					ResourcesCompat.getDrawable(
+						requireActivity().resources,
+						R.drawable.profile_pic_male,
+						null
+					)
+						?.let { sharedViewModel.setProfileImage(it) }
+					findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+				}
+			}
 		}
-
 	}
 
     /**

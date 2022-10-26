@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TapasTop</string>
+    <string name="login_title">Iniciar sesión</string>
+    <string name="signup_title">Registrarse</string>
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="confirm_password_hint">Confirma la contraseña</string>
+    <string name="forgot_password">He olvidado mi contraseña</string>
+    <string name="main_menu">Menú Principal</string>
+    <string name="profile_title">Perfil</string>
+    <string name="favorites_title">Favoritos</string>
+    <string name="top_title">Top 5</string>
+    <string name="awards_title">Galardones</string>
+    <string name="last_5_title">Últimos 5</string>
+    <string name="view_all_title">Ver todo</string>
+    <string name="view_profile_title">Ver perfil</string>
+    <string name="empty_field_error_msg">Este campo es obligatorio</string>
+    <string name="passwords_unmatch_msg">Las contraseñas no coinciden</string>
+    <string name="invalid_mail_msg">Dirección de correo incorrecta</string>
+    <string name="stats_title">Estadísticas</string>
+    <string name="edit_title">Editar</string>
+    <string name="name_textview">Nombre</string>
+    <string name="username_textview">Nombre de usuario</string>
+    <string name="fullname_hint">Nombre completo</string>
+    <string name="gender_hint">Género</string>
+    <string name="country_hint">País</string>
+    <string name="location_hint">Lolización</string>
+    <string name="description_hint">Descripción</string>
+    <string name="gender_male">Hombre</string>
+    <string name="gender_female">Mujer</string>
+    <string name="title_post_signup">Completa tu perfil</string>
+    <string name="upload_text">Sube una foto de perfil</string>
+    <string name="name_title">Nombre completo:</string>
+    <string name="email_title">Correo electrónico:</string>
+    <string name="gender_title">Género:</string>
+    <string name="country_title">País:</string>
+    <string name="location_title">Localización:</string>
+    <string name="description_title">Descripción:</string>
+    <string name="degustation_title">Cantidad total de degustaciones añadidas:</string>
+    <string name="locals_title">Cantidad total de locales añadidos:</string>
+    <string name="requests_title">Cantidad de solicitudes pendientes:</string>
+</resources>
