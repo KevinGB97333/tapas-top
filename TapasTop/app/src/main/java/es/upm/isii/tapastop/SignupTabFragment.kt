@@ -105,10 +105,10 @@ class SignupTabFragment : Fragment() {
      * Validate all of the fields
      */
     private fun validateFields() {
-		val username = usernameET.text.toString()
-		val email = emailET.text.toString()
-		val password = passwordET.text.toString()
-		val confirmPassword = confirmPasswordET.text.toString()
+		val username = usernameET.text.toString().trim()
+		val email = emailET.text.toString().trim()
+		val password = passwordET.text.toString().trim()
+		val confirmPassword = confirmPasswordET.text.toString().trim()
 		if (!checkEmptyFields(username, email, password, confirmPassword)) {
 
             val validUsername = isValidUsername(username)
