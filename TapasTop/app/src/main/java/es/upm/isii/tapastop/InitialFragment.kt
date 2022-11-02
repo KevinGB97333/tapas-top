@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import es.upm.isii.tapastop.adapters.LoginAdapter
 import es.upm.isii.tapastop.databinding.FragmentInitialBinding
 
 class InitialFragment : Fragment() {
@@ -42,17 +40,4 @@ class InitialFragment : Fragment() {
         }.attach()
 
     }
- /*
-	onCreate()
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
-    tabLayout = binding.tabLayout
-    viewPager = binding.viewPager
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.login_title))
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.signup_title))
-    tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-    val loginAdapter = LoginAdapter(supportFragmentManager, tabLayout.tabCount)
-    viewPager.adapter =
-    viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-*/
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -128,18 +129,12 @@ class SignupTabFragment : Fragment() {
 			}
 
 			if (validUsername && emailValid && passwords) {
-				shareViewModel.setUsername(username)
-				shareViewModel.setEmail(email)
-				if (!sharedViewModel.hasGenderSet()) {
-					sharedViewModel.setGender(getString(R.string.gender_male))
-				}
 				if (!sharedViewModel.hasProfilePicSet()) {
 					ResourcesCompat.getDrawable(
 						requireActivity().resources,
 						R.drawable.profile_pic_male,
 						null
-					)
-						?.let { sharedViewModel.setProfileImage(it) }
+					)?.let { sharedViewModel.setProfileImage(it.toBitmap()) }
 					findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
 				}
 			}

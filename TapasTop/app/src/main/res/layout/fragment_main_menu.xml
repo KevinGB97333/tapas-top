@@ -72,7 +72,7 @@
                         android:fontFamily="@font/brandon_grotesque_bold_italic"
                         android:textAlignment="center"
                         android:textColor="@color/grey_900"
-                        android:text="@{viewModel.username.toString()}"
+                        android:text="@{viewModel.currentUser.username.toString()}"
                         tools:text="Kevin" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -84,7 +84,7 @@
                         android:layout_marginBottom="5dp"
                         android:scaleType="centerCrop"
                         android:elevation="10dp"
-                        android:src="@drawable/img_example2"
+                        app:imageBitmap="@{viewModel.userProfileImg}"
                         tools:src="@drawable/img_example2" />
 
                     <TextView

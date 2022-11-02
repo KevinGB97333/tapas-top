@@ -1,6 +1,7 @@
 package es.upm.isii.tapastop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -99,19 +101,16 @@ class LoginTabFragment : Fragment() {
         val password = passwordET.text.toString().trim()
         val emptyFields = checkEmptyFields(username, password)
         if (!emptyFields) {
-            sharedViewModel.setUsername(username)
-            if (!sharedViewModel.hasGenderSet()) {
-                sharedViewModel.setGender(getString(R.string.gender_male))
-            }
             if (!sharedViewModel.hasProfilePicSet()) {
                 ResourcesCompat.getDrawable(
                     requireActivity().resources,
                     R.drawable.profile_pic_male,
                     null
-                )
-                    ?.let { sharedViewModel.setProfileImage(it) }
-                findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+                )?.let { sharedViewModel.setProfileImage(it.toBitmap()) }
             }
+            Log.d("LOGINTABFRAGMENT","Username: ${username}, Password ${password}")
+            sharedViewModel.getUser(username, password)
+            findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
         }
     }
     private fun checkEmptyFields(username : String , password : String) : Boolean{

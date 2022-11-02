@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@{viewModel.userProfileImg}"
+                app:imageBitmap="@{viewModel.userProfileImg}"
                 tools:src="@drawable/profile_pic_male" />
 
             <TextView
@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_img"
-                android:text="@{viewModel.username.toString()}"
+                android:text="@{viewModel.currentUser.username.toString()}"
                 tools:text="Kevin"
                 android:layout_marginTop="10dp"/>
 
@@ -62,7 +62,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_textview_title"
-                android:text="@{viewModel.name.toString()}"
+                android:text="@{viewModel.currentUser.name.toString()}"
                 tools:text="Kevin guapo" />
 
             <TextView
@@ -85,7 +85,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email_textview_title"
-                android:text="@{viewModel.userEmail.toString()}"
+                android:text="@{viewModel.currentUser.email.toString()}"
                 tools:text="kevin@gmail.com" />
 
             <TextView
@@ -108,7 +108,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gender_textview_title"
-                android:text="@{viewModel.gender.toString()}"
+                android:text="@{viewModel.currentUser.gender.toString()}"
                 tools:text="Male" />
 
             <TextView
@@ -131,7 +131,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/country_textview_title"
-                android:text="@{viewModel.country.toString()}"
+                android:text="@{viewModel.currentUser.country.toString()}"
                 tools:text="Spain" />
 
             <TextView
@@ -154,7 +154,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location_textview_title"
-                android:text="@{viewModel.location.toString()}"
+                android:text="@{viewModel.currentUser.location.toString()}"
                 tools:text="Ubicacion" />
 
             <TextView
@@ -177,7 +177,7 @@
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_textview_title"
-                android:text="@{viewModel.description.toString()}"
+                android:text="@{viewModel.currentUser.description.toString()}"
                 tools:text="Descripcion" />
 
             <TextView
