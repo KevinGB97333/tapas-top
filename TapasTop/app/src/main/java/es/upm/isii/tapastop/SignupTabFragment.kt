@@ -68,6 +68,7 @@ class SignupTabFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		binding?.apply {
 
+			viewModel = shareViewModel
 
 			signUpBtn.setOnClickListener {
 				validateFields()
@@ -129,14 +130,10 @@ class SignupTabFragment : Fragment() {
 			}
 
 			if (validUsername && emailValid && passwords) {
-				if (!sharedViewModel.hasProfilePicSet()) {
-					ResourcesCompat.getDrawable(
-						requireActivity().resources,
-						R.drawable.profile_pic_male,
-						null
-					)?.let { sharedViewModel.setProfileImage(it.toBitmap()) }
-					findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
-				}
+				shareViewModel.setUsername(username)
+				shareViewModel.setUserEmail(email)
+				shareViewModel.setUserPassword(password)
+				findNavController().navigate(R.id.action_initialFragment_to_postSignUpFragment)
 			}
 		}
 	}

@@ -20,6 +20,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import es.upm.isii.tapastop.databinding.FragmentLoginTabBinding
 import es.upm.isii.tapastop.model.UserViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LoginTabFragment : Fragment() {
 
@@ -101,14 +104,7 @@ class LoginTabFragment : Fragment() {
         val password = passwordET.text.toString().trim()
         val emptyFields = checkEmptyFields(username, password)
         if (!emptyFields) {
-            if (!sharedViewModel.hasProfilePicSet()) {
-                ResourcesCompat.getDrawable(
-                    requireActivity().resources,
-                    R.drawable.profile_pic_male,
-                    null
-                )?.let { sharedViewModel.setProfileImage(it.toBitmap()) }
-            }
-            Log.d("LOGINTABFRAGMENT","Username: ${username}, Password ${password}")
+
             sharedViewModel.getUser(username, password)
             findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
         }

@@ -85,6 +85,7 @@
                         android:scaleType="centerCrop"
                         android:elevation="10dp"
                         app:imageBitmap="@{viewModel.userProfileImg}"
+                        app:placeholder="@{@drawable/profile_pic_placeholder}"
                         tools:src="@drawable/img_example2" />
 
                     <TextView

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
+import android.opengl.ETC1.decodeImage
 import android.util.Base64
 import android.util.Log
 import android.util.Patterns
@@ -20,14 +21,14 @@ import androidx.lifecycle.viewModelScope
 import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.network.TapasTopApi
 import es.upm.isii.tapastop.network.User
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class UserViewModel : ViewModel(){
 
 
     private val _currentUser = MutableLiveData<User>()
 
-    var currentUser : LiveData<User> = _currentUser
+    val currentUser : LiveData<User> = _currentUser
 
     //Profile image of the current user
     private val _userProfileImg = MutableLiveData<Bitmap>()
@@ -57,16 +58,16 @@ class UserViewModel : ViewModel(){
 
 
     fun getUser(username : String, password : String){
-        viewModelScope.launch {
+        val job= viewModelScope.launch {
             //Status
             try{
                 _currentUser.value = TapasTopApi.retrofitService.getLoginUser(username, password).user
                 _userProfileImg.value = decodeImage(_currentUser.value?.profileImg)
-                Log.d("ViewModel get user","Correct User ${_currentUser.value}")
-            }catch(e : Exception){
-                Log.d("ViewModel get user","${e.toString()}")
+                Log.d("Main Menu get user","Correct User ${_currentUser.value}")
+            }catch(e : Exception) {
+                Log.d("ViewModel get user", "${e.toString()}")
                 Log.d("ViewModel get user", "ERROR")
-                Log.d("ViewModel get user","User ${_currentUser.value}")
+                Log.d("ViewModel get user", "User ${_currentUser.value}")
             }
         }
     }
@@ -86,6 +87,33 @@ class UserViewModel : ViewModel(){
         _awards.value = 0
     }
 
+    fun setUsername(username: String){
+        _currentUser.value?.username = username
+    }
+    fun setUserEmail(email : String){
+        _currentUser.value?.email = email
+    }
+    fun setUserPassword(password: String){
+        _currentUser.value?.password = password
+    }
+    fun setName(name : String){
+        _currentUser.value?.name = name
+    }
+    fun setLastName(lastName : String){
+        _currentUser.value?.surname = lastName
+    }
+    fun setGender(gender : String){
+        _currentUser.value?.gender = gender
+    }
+    fun setCountry(country : String){
+        _currentUser.value?.country = country
+    }
+    fun setLocation(location : String){
+        _currentUser.value?.location = location
+    }
+    fun setDescription(description : String){
+        _currentUser.value?.description = description
+    }
     /**
      * Set user profile image
      *

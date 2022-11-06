@@ -1,6 +1,7 @@
 package es.upm.isii.tapastop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
+import es.upm.isii.tapastop.adapters.bindImage
 import es.upm.isii.tapastop.databinding.FragmentMainMenuBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
@@ -19,7 +22,7 @@ class MainMenuFragment : Fragment() {
     private val binding get()=_binding!!
 
     // ViewModel object instance corresponding to the UserViewModel.kt class
-    private val shareViewModel : UserViewModel by activityViewModels()
+    private val sharedViewModel : UserViewModel by activityViewModels()
 
     private lateinit var viewProfileBtn : Button
     override fun onCreateView(
@@ -34,12 +37,14 @@ class MainMenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
+            viewModel = sharedViewModel
+            Log.d("Main Menu", "YA entramos")
             viewProfileBtn.setOnClickListener{
                 findNavController().navigate(R.id.action_mainMenuFragment_to_profileFragment)
             }
-            viewModel = shareViewModel
         }
     }
 }

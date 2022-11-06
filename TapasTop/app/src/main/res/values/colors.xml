@@ -18,5 +18,6 @@
     <color name="red_700">#d50000</color>
     <color name="amber_900">#ff6f00</color>
     <color name="amber_700">#ffa000</color>
-    C5B6B6
+    <color name="title_color">#410704</color>
+
 </resources>

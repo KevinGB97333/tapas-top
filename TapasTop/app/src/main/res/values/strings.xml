@@ -21,14 +21,15 @@
     <string name="stats_title">Stats</string>
     <string name="edit_title">Edit</string>
     <string name="name_textview">Name</string>
+    <string name="last_name_textview">Last Name</string>
     <string name="username_textview">Username</string>
     <string name="fullname_hint">Full Name</string>
-    <string name="gender_hint">Gender</string>
+    <string name="gender_hint">Choose Gender: </string>
     <string name="country_hint">Country</string>
     <string name="location_hint">Location</string>
     <string name="description_hint">Description</string>
-    <string name="gender_male">Male</string>
-    <string name="gender_female">Female</string>
+    <string name="gender_male">M</string>
+    <string name="gender_female">F</string>
     <string name="title_post_signup">Complete your profile</string>
     <string name="upload_text">Upload a profile picture</string>
     <string name="name_title">Full Name:</string>
@@ -40,4 +41,7 @@
     <string name="degustation_title">Total number of degustations added:</string>
     <string name="locals_title">Total number of locals added:</string>
     <string name="requests_title">Number of pending requests:</string>
+    <string name="age_title">Age\nVerification</string>
+    <string name="age_warning">You must be 18 to use this app</string>
+    <string name="select_from_gallery_text">Select from your gallery</string>
 </resources>

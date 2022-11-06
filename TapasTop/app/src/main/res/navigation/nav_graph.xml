@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/initialFragment">
+    app:startDestination="@id/ageValidationFragment">
 
     <fragment
         android:id="@+id/initialFragment"
@@ -11,7 +11,14 @@
         <action
             android:id="@+id/action_initialFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment"
-            app:enterAnim="@anim/enter_anim" />
+            app:enterAnim="@anim/enter_anim"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_initialFragment_to_postSignUpFragment"
+            app:destination="@id/postSignUpFragment"
+            app:popUpTo="@id/initialFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/mainMenuFragment"
@@ -26,4 +33,24 @@
         android:id="@+id/profileFragment"
         android:name="es.upm.isii.tapastop.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/ageValidationFragment"
+        android:name="es.upm.isii.tapastop.AgeValidationFragment"
+        android:label="AgeValidationFragment" >
+        <action
+            android:id="@+id/action_ageValidationFragment_to_initialFragment"
+            app:destination="@id/initialFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/postSignUpFragment"
+        android:name="es.upm.isii.tapastop.PostSignUpFragment"
+        android:label="PostSignUpFragment" >
+        <action
+            android:id="@+id/action_postSignUpFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

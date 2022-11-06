@@ -7,14 +7,14 @@ data class UserResponse(
 )
 
 data class User(
-    @Json(name = "country")val country: String,
-    @Json(name = "description")val description: String,
-    @Json(name = "email")val email: String,
-    @Json(name = "gender")val gender: String,
-    @Json(name = "location")val location: String,
-    @Json(name = "name")val name: String,
-    @Json(name = "password")val password: String,
-    @Json(name = "profile_img")val profileImg: String,
-    @Json(name = "surname")val surname: String,
-    @Json(name = "username")val username: String
+    @Json(name = "country")var country: String,
+    @Json(name = "description")var description: String,
+    @Json(name = "email")var email: String,
+    @Json(name = "gender")var gender: String,
+    @Json(name = "location")var location: String,
+    @Json(name = "name")var name: String,
+    @Json(name = "password")var password: String,
+    @Json(name = "profile_img")var profileImg: String,
+    @Json(name = "surname")var surname: String,
+    @Json(name = "username") var username: String
 )

@@ -22,14 +22,15 @@
     <string name="stats_title">Estadísticas</string>
     <string name="edit_title">Editar</string>
     <string name="name_textview">Nombre</string>
+    <string name="last_name_textview">Apellidos</string>
     <string name="username_textview">Nombre de usuario</string>
     <string name="fullname_hint">Nombre completo</string>
-    <string name="gender_hint">Género</string>
+    <string name="gender_hint">Género: </string>
     <string name="country_hint">País</string>
-    <string name="location_hint">Lolización</string>
+    <string name="location_hint">Localización</string>
     <string name="description_hint">Descripción</string>
-    <string name="gender_male">Hombre</string>
-    <string name="gender_female">Mujer</string>
+    <string name="gender_male">M</string>
+    <string name="gender_female">F</string>
     <string name="title_post_signup">Completa tu perfil</string>
     <string name="upload_text">Sube una foto de perfil</string>
     <string name="name_title">Nombre completo:</string>
@@ -41,4 +42,7 @@
     <string name="degustation_title">Cantidad total de degustaciones añadidas:</string>
     <string name="locals_title">Cantidad total de locales añadidos:</string>
     <string name="requests_title">Cantidad de solicitudes pendientes:</string>
+    <string name="age_title">Verificación\nde edad</string>
+    <string name="age_warning">Debes ser mayor de 18 años\npara usar esta app</string>
+    <string name="select_from_gallery_text">Selecciona una foto de tu galería</string>
 </resources>

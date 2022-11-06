@@ -29,6 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:imageBitmap="@{viewModel.userProfileImg}"
+                app:placeholder="@{@drawable/profile_pic_placeholder}"
                 tools:src="@drawable/profile_pic_male" />
 
             <TextView
@@ -51,7 +52,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/username_textview"
-                tools:text="@string/name_title" />
+                android:text="@string/name_textview"/>
 
             <TextView
                 android:id="@+id/name_textview"
@@ -64,7 +65,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/name_textview_title"
                 android:text="@{viewModel.currentUser.name.toString()}"
                 tools:text="Kevin guapo" />
-
+            <TextView
+                android:id="@+id/last_name_textview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="@string/last_name_textview"
+                app:layout_constraintTop_toBottomOf="@id/name_textview"/>
+            <TextView
+                android:id="@+id/last_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_name_textview_title"
+                android:text="@{viewModel.currentUser.surname.toString()}"
+                tools:text="Guarnizo" />
             <TextView
                 android:id="@+id/email_textview_title"
                 android:layout_width="wrap_content"
@@ -73,8 +94,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_textview"
-                tools:text="@string/email_title" />
+                app:layout_constraintTop_toBottomOf="@id/last_name_textview"
+                android:text="@string/email_title" />
 
             <TextView
                 android:id="@+id/email_textview"
@@ -97,7 +118,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_textview"
-                tools:text="@string/gender_title" />
+                android:text="@string/gender_title" />
 
             <TextView
                 android:id="@+id/gender_textview"
@@ -109,7 +130,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gender_textview_title"
                 android:text="@{viewModel.currentUser.gender.toString()}"
-                tools:text="Male" />
+                tools:text="M" />
 
             <TextView
                 android:id="@+id/country_textview_title"
@@ -120,7 +141,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gender_textview"
-                tools:text="@string/country_title" />
+                android:text="@string/country_title" />
 
             <TextView
                 android:id="@+id/country_textview"
@@ -143,7 +164,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/country_textview"
-                tools:text="@string/location_title" />
+                android:text="@string/location_title" />
 
             <TextView
                 android:id="@+id/location_textview"
@@ -155,7 +176,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location_textview_title"
                 android:text="@{viewModel.currentUser.location.toString()}"
-                tools:text="Ubicacion" />
+                tools:text="Madrid" />
 
             <TextView
                 android:id="@+id/description_textview_title"
@@ -166,19 +187,22 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location_textview"
-                tools:text="@string/description_title" />
+                android:text="@string/description_title" />
 
             <TextView
                 android:id="@+id/description_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAlignment="textStart"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_textview_title"
                 android:text="@{viewModel.currentUser.description.toString()}"
-                tools:text="Descripcion" />
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin placerat mi eget magna volutpat convallis. Vivamus justo leo, accumsan ac vulputate vitae, gravida quis mauris." />
 
             <TextView
                 android:id="@+id/degustation_textview_title"
@@ -189,7 +213,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description_textview"
-                tools:text="@string/degustation_title" />
+                android:text="@string/degustation_title" />
 
             <TextView
                 android:id="@+id/degustation_textview"
@@ -212,7 +236,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/degustation_textview"
-                tools:text="@string/locals_title" />
+                android:text="@string/locals_title" />
 
             <TextView
                 android:id="@+id/locals_textview"
@@ -235,7 +259,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/locals_textview"
-                tools:text="@string/requests_title" />
+                android:text="@string/requests_title" />
 
             <TextView
                 android:id="@+id/requests_textview"
@@ -258,7 +282,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/requests_textview"
-                tools:text="@string/awards_title" />
+                android:text="@string/awards_title" />
 
             <TextView
                 android:id="@+id/awards_textview"
@@ -283,7 +307,9 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_edit"
         android:backgroundTint="@color/amber_700"
+        app:borderWidth="0dp"
         app:tint = "@color/white"
+        android:elevation="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"/>
 </RelativeLayout>
