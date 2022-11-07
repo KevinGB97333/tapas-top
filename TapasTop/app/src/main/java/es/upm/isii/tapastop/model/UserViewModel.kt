@@ -21,7 +21,11 @@ import androidx.lifecycle.viewModelScope
 import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.network.TapasTopApi
 import es.upm.isii.tapastop.network.User
+import es.upm.isii.tapastop.network.UserResponse
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
+
+enum class restApiStatus { LOADING, ERROR, DONE }
 
 class UserViewModel : ViewModel(){
 
@@ -49,6 +53,9 @@ class UserViewModel : ViewModel(){
     private val _awards = MutableLiveData<Int>()
     val awards : LiveData<Int> = _awards
 
+    private val _status = MutableLiveData<restApiStatus>()
+    val status : LiveData<restApiStatus> = _status
+
     private val password = "randomPass"
 
     init{
@@ -58,18 +65,48 @@ class UserViewModel : ViewModel(){
 
 
     fun getUser(username : String, password : String){
-        val job= viewModelScope.launch {
+        viewModelScope.launch {
             //Status
+            _status.value = restApiStatus.LOADING
             try{
-                _currentUser.value = TapasTopApi.retrofitService.getLoginUser(username, password).user
-                _userProfileImg.value = decodeImage(_currentUser.value?.profileImg)
-                Log.d("Main Menu get user","Correct User ${_currentUser.value}")
+                val response = TapasTopApi.retrofitService.getLoginUser(username,password)
+                when(response.code()){
+                    200 ->{ _currentUser.value = response.body()!!.user
+                            _userProfileImg.value = decodeImage(_currentUser.value?.profileImg)
+                            Log.d("Main Menu get user","Correct User ${_currentUser.value}")
+                            _status.value = restApiStatus.DONE
+                    }
+
+                    else -> {_status.value = restApiStatus.ERROR
+                            Log.d("Login Errror","Code: ${response.code()}")
+                    }
+                }
             }catch(e : Exception) {
-                Log.d("ViewModel get user", "${e.toString()}")
-                Log.d("ViewModel get user", "ERROR")
-                Log.d("ViewModel get user", "User ${_currentUser.value}")
+                _status.value = restApiStatus.ERROR
             }
         }
+    }
+    fun createUser(){
+        viewModelScope.launch {
+            _status.value = restApiStatus.LOADING
+            try{
+                 _currentUser.value?.profileImg = encodeImage(_userProfileImg.value)
+                val newUser : UserResponse = _currentUser.value?.let { UserResponse(it) }!!
+                val response = newUser?.let { TapasTopApi.retrofitService.createUser(it) }
+                when(response?.code()){
+                    200 -> _status.value = restApiStatus.DONE
+                    else -> _status.value = restApiStatus.ERROR
+                }
+            }catch(e: Exception){
+                _status.value = restApiStatus.ERROR
+            }
+        }
+    }
+    private fun encodeImage(imageBitmap: Bitmap?) : String{
+        val baos = ByteArrayOutputStream()
+        imageBitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b = baos.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
     }
     private fun decodeImage(imageB64 : String?) : Bitmap{
         val imageBytes = Base64.decode(imageB64, Base64.DEFAULT)

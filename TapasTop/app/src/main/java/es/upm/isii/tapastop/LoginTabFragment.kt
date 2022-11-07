@@ -9,6 +9,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -20,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import es.upm.isii.tapastop.databinding.FragmentLoginTabBinding
 import es.upm.isii.tapastop.model.UserViewModel
+import es.upm.isii.tapastop.model.restApiStatus
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -78,6 +80,13 @@ class LoginTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            sharedViewModel.status.observe(viewLifecycleOwner){
+                when(it){
+                    restApiStatus.DONE -> findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+                    restApiStatus.LOADING -> {}
+                    restApiStatus.ERROR -> Toast.makeText(requireContext(),"Error al hacer el login", Toast.LENGTH_SHORT).show()
+                }
+            }
             loginBtn.setOnClickListener{
                 validateFields()
             }
@@ -104,9 +113,7 @@ class LoginTabFragment : Fragment() {
         val password = passwordET.text.toString().trim()
         val emptyFields = checkEmptyFields(username, password)
         if (!emptyFields) {
-
             sharedViewModel.getUser(username, password)
-            findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
         }
     }
     private fun checkEmptyFields(username : String , password : String) : Boolean{

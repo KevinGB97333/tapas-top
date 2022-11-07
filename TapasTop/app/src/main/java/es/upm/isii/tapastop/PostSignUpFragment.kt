@@ -11,15 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.mikhaellopez.circularimageview.CircularImageView
+import es.upm.isii.tapastop.PostSignUpFragment.Companion.IMAGE_REQUEST_CODE
 import es.upm.isii.tapastop.databinding.FragmentPostSignupBinding
 import es.upm.isii.tapastop.model.UserViewModel
+import es.upm.isii.tapastop.model.restApiStatus
 import kotlin.math.round
 
 
@@ -61,7 +65,19 @@ class PostSignUpFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		binding.apply {
 			viewModel = shareViewModel
-
+			shareViewModel.status.observe(viewLifecycleOwner){
+				when(it){
+					restApiStatus.DONE -> {loadingLayout.visibility = View.GONE
+						findNavController().navigate(R.id.action_postSignUpFragment_to_mainMenuFragment)
+					}
+					restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
+					restApiStatus.ERROR -> { loadingLayout.visibility = View.GONE
+						Toast.makeText(requireContext(), "Error al completar el registro",
+							Toast.LENGTH_SHORT)
+							.show()
+					}
+				}
+			}
 			profileImg.setOnClickListener {
 				if (ActivityCompat.checkSelfPermission(
 						requireActivity(),
@@ -75,7 +91,7 @@ class PostSignUpFragment : Fragment() {
 			}
 			nextScreen.setOnClickListener{
 				setUserValues()
-				findNavController().navigate(R.id.action_postSignUpFragment_to_mainMenuFragment)
+				 shareViewModel.createUser()
 			}
 		}
 	}
