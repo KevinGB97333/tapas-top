@@ -61,24 +61,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/view_pager"
-                app:layout_constraintTop_toTopOf="@id/tab_layout"
-                android:background="@drawable/white_circle"
-                android:elevation="8dp"
-                android:visibility="gone"
-                app:restApiStatus="@{viewModel.status}">
-                <ProgressBar
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:indeterminateTint="@color/grey_900"/>
-
-            </RelativeLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"

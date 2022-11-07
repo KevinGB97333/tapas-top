@@ -80,11 +80,25 @@ class LoginTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            viewModel = sharedViewModel
             sharedViewModel.status.observe(viewLifecycleOwner){
                 when(it){
-                    restApiStatus.DONE -> findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
-                    restApiStatus.LOADING -> {}
-                    restApiStatus.ERROR -> Toast.makeText(requireContext(),"Error al hacer el login", Toast.LENGTH_SHORT).show()
+                    restApiStatus.DONE -> {
+                        loadingLayout.visibility = View.GONE
+                        Log.d("LoginTab", "Entrando")
+                        findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
+                    }
+                    restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
+                    restApiStatus.ERROR -> {
+                        loadingLayout.visibility = View.GONE
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al hacer el login",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                    restApiStatus.NOTHING -> {}
                 }
             }
             loginBtn.setOnClickListener{

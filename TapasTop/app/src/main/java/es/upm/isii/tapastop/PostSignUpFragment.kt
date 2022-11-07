@@ -76,6 +76,7 @@ class PostSignUpFragment : Fragment() {
 							Toast.LENGTH_SHORT)
 							.show()
 					}
+					restApiStatus.NOTHING -> {}
 				}
 			}
 			profileImg.setOnClickListener {

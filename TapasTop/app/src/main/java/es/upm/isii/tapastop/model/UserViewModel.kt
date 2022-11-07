@@ -1,33 +1,24 @@
 package es.upm.isii.tapastop.model
 
-import android.R.drawable
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.media.Image
-import android.opengl.ETC1.decodeImage
+
 import android.util.Base64
 import android.util.Log
-import android.util.Patterns
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.network.TapasTopApi
 import es.upm.isii.tapastop.network.User
 import es.upm.isii.tapastop.network.UserResponse
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
 
-enum class restApiStatus { LOADING, ERROR, DONE }
+enum class restApiStatus { NOTHING,LOADING, ERROR, DONE }
 
 class UserViewModel : ViewModel(){
+
 
 
     private val _currentUser = MutableLiveData<User>()
@@ -115,7 +106,8 @@ class UserViewModel : ViewModel(){
     /**
      * Resets values to default when the viewModel initializes
      */
-    private fun resetUser() {
+    fun resetUser() {
+        _status.value = restApiStatus.NOTHING
         profilePicIsSet = false
         _currentUser.value = User("","","","","","","","","","")
         _degustationsAdded.value = 0
