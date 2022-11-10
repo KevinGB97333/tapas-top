@@ -133,7 +133,7 @@ class SignupTabFragment : Fragment() {
 				shareViewModel.setUsername(username)
 				shareViewModel.setUserEmail(email)
 				shareViewModel.setUserPassword(password)
-				findNavController().navigate(R.id.action_initialFragment_to_postSignUpFragment)
+				findNavController().navigate(R.id.action_initialFragment_to_verifyMailFragment)
 			}
 		}
 	}

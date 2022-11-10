@@ -2,6 +2,6 @@ package es.upm.isii.tapastop.network
 
 import com.squareup.moshi.Json
 
-data class CreateResponse(
+data class MessageResponse(
     @Json(name="mensaje")val message: String
 )

@@ -39,8 +39,10 @@ interface TapasTopApiService{
     suspend fun getLoginUser(@Query("username") username : String, @Query("password") password : String) : Response<UserResponse>
 
     @POST("users")
-    suspend fun createUser(@Body user : UserResponse) : Response<CreateResponse>
+    suspend fun createUser(@Body user : UserResponse) : Response<MessageResponse>
 
+    @POST("verifyMail")
+    suspend fun sendVerificationMail(@Query("email") email : String, @Query("code") code : String) : Response<MessageResponse>
 
     @PUT("users/{username}")
     suspend fun updateUser(@Path("username") username: String, @Body user : User)

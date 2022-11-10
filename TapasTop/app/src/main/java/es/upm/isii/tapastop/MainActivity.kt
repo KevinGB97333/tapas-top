@@ -12,6 +12,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import es.upm.isii.tapastop.databinding.ActivityMainBinding
 
+interface IOnBackPressed {
+	fun onBackPressed(): Boolean
+}
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 	private lateinit var binding: ActivityMainBinding
@@ -21,7 +24,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 		super.onCreate(savedInstanceState)
 		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 		binding = ActivityMainBinding.inflate(layoutInflater)
-		val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+		val navHostFragment =
+			supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 		navController = navHostFragment.navController
 	}
 

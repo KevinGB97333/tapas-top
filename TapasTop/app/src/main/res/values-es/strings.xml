@@ -45,4 +45,7 @@
     <string name="age_title">Verificación\nde edad</string>
     <string name="age_warning">Debes ser mayor de 18 años\npara usar esta app</string>
     <string name="select_from_gallery_text">Selecciona una foto de tu galería</string>
+    <string name="email_verification_title">Verificar Email</string>
+    <string name="resend_email"><u>Volver a enviar email </u></string>
+    <string name="code">Código:</string>
 </resources>

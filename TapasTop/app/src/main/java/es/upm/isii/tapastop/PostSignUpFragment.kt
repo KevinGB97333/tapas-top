@@ -4,27 +4,23 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.mikhaellopez.circularimageview.CircularImageView
-import es.upm.isii.tapastop.PostSignUpFragment.Companion.IMAGE_REQUEST_CODE
 import es.upm.isii.tapastop.databinding.FragmentPostSignupBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus
-import kotlin.math.round
+
 
 
 class PostSignUpFragment : Fragment() {
@@ -63,6 +59,7 @@ class PostSignUpFragment : Fragment() {
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 		binding.apply {
 			viewModel = shareViewModel
 			shareViewModel.status.observe(viewLifecycleOwner){
@@ -96,6 +93,7 @@ class PostSignUpFragment : Fragment() {
 			}
 		}
 	}
+
 	private fun setUserValues(){
 		shareViewModel.setProfileImage(profileImgIW.drawToBitmap())
 		shareViewModel.setName(nameET.text.toString().trim())

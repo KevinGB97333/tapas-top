@@ -44,4 +44,7 @@
     <string name="age_title">Age\nVerification</string>
     <string name="age_warning">You must be 18 to use this app</string>
     <string name="select_from_gallery_text">Select from your gallery</string>
+    <string name="email_verification_title">Email Verification</string>
+    <string name="resend_email"><u>Resend email</u></string>
+    <string name="code">Code:</string>
 </resources>

@@ -2,6 +2,8 @@ package es.upm.isii.tapastop.model
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.ETC1.decodeImage
+import android.opengl.ETC1.encodeImage
 
 import android.util.Base64
 import android.util.Log
@@ -9,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import es.upm.isii.tapastop.network.TapasTopApi
 import es.upm.isii.tapastop.network.User
 import es.upm.isii.tapastop.network.UserResponse
@@ -48,13 +51,17 @@ class UserViewModel : ViewModel(){
     val status : LiveData<restApiStatus> = _status
 
     private val password = "randomPass"
-
+    var code : String = ""
     init{
         resetUser()
     }
 
-
-
+    /**
+     * Retrieve user from the server
+     *
+     * @param username of the desired user
+     * @param password of the desired user
+     */
     fun getUser(username : String, password : String){
         viewModelScope.launch {
             //Status
@@ -77,6 +84,24 @@ class UserViewModel : ViewModel(){
             }
         }
     }
+
+    /**
+     * Send request to the server to send verification email to the current user
+     */
+    fun sendMail(){
+        generateCode()
+        viewModelScope.launch {
+            try{
+                val response = _currentUser.value?.let {
+                    TapasTopApi.retrofitService.sendVerificationMail(
+                        it.email, code)
+                }
+            }catch(e : Exception){
+                Log.d("Send email exception", "${e.printStackTrace()}")
+            }
+        }
+    }
+
     fun createUser(){
         viewModelScope.launch {
             _status.value = restApiStatus.LOADING
@@ -107,6 +132,7 @@ class UserViewModel : ViewModel(){
      * Resets values to default when the viewModel initializes
      */
     fun resetUser() {
+        code = ""
         _status.value = restApiStatus.NOTHING
         profilePicIsSet = false
         _currentUser.value = User("","","","","","","","","","")
@@ -142,6 +168,14 @@ class UserViewModel : ViewModel(){
     }
     fun setDescription(description : String){
         _currentUser.value?.description = description
+    }
+    private fun generateCode(){
+        code = "${(0..9).random()}"+
+                "${(0..9).random()}"+
+                "${(0..9).random()}"+
+                "${(0..9).random()}"
+
+        Log.d("CODE GENERATED:",code)
     }
     /**
      * Set user profile image
