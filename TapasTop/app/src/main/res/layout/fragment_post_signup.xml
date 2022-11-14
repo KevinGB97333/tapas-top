@@ -50,6 +50,7 @@
                     android:id="@+id/profile_img_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:text="@string/select_from_gallery_text"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -66,11 +67,12 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/profile_img_hint"
                     app:layout_constraintWidth_percent=".8">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_up_name_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textAutoComplete"
+                        android:textCursorDrawable="@null"
                         android:hint="@string/name_textview" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,6 +92,8 @@
                         android:id="@+id/sign_up_last_name_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textAutoComplete"
+                        android:textCursorDrawable="@null"
                         android:hint="@string/last_name_textview" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,28 +114,45 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/gender_hint" />
 
-                    <RadioButton
+                    -<RadioButton
                         android:id="@+id/male_radio_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gender_male"
                         android:onClick="@{() -> viewModel.setGender(@string/gender_male)}"
-                        app:layout_constraintHorizontal_bias="0.05"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/gender_radio_group"
                         tools:text="@string/gender_male" />
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:tint="@color/amber_900"
+                        android:src="@drawable/ic_male"/>
                     <RadioButton
                         android:id="@+id/female_radio_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gender_female"
                         android:onClick="@{() -> viewModel.setGender(@string/gender_female)}"
-                        app:layout_constraintHorizontal_bias="1.5"
-                        app:layout_constraintLeft_toLeftOf="@+id/male_radio_button"
-                        app:layout_constraintRight_toRightOf="parent"
                         tools:text="@string/gender_female" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:tint="@color/amber_900"
+                        android:src="@drawable/ic_female"/>
+                    <RadioButton
+                        android:id="@+id/other_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender_other"
+                        android:onClick="@{() ->viewModel.setGender(@string/gender_other)}"
+                        app:layout_constraintHorizontal_bias="1.5" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="12dp"
+                        app:tint="@color/amber_900"
+                        android:src="@drawable/ic_gender"/>
                 </RadioGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -150,6 +171,8 @@
                         android:id="@+id/sign_up_country_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textAutoComplete"
+                        android:textCursorDrawable="@null"
                         android:hint="@string/country_hint" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,6 +192,8 @@
                         android:id="@+id/sign_up_location_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textAutoComplete"
+                        android:textCursorDrawable="@null"
                         android:hint="@string/location_hint" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -192,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="20mm"
                         android:inputType="textMultiLine"
+                        android:textCursorDrawable="@null"
                         android:hint="@string/description_hint"
                         android:maxLength="200"/>
                 </com.google.android.material.textfield.TextInputLayout>

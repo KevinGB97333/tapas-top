@@ -73,7 +73,7 @@ class LoginTabFragment : Fragment() {
         passwordTL.startAnimation(passwordAnimation)
         forgotPassword.startAnimation(passwordAnimation)
         loginBtn.startAnimation(loginAnimation)
-
+        sharedViewModel.resetStatus()
         return root
     }
 
@@ -85,7 +85,6 @@ class LoginTabFragment : Fragment() {
                 when(it){
                     restApiStatus.DONE -> {
                         loadingLayout.visibility = View.GONE
-                        Log.d("LoginTab", "Entrando")
                         findNavController().navigate(R.id.action_initialFragment_to_mainMenuFragment)
                     }
                     restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
@@ -120,26 +119,14 @@ class LoginTabFragment : Fragment() {
                     passwordTL.error = null
                 }
             }
+            forgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_initialFragment_to_usernameForgotPasswordFragment)
+            }
         }
     }
     private fun validateFields() {
-        val username = usernameET.text.toString().trim()
-        val password = passwordET.text.toString().trim()
-        val emptyFields = checkEmptyFields(username, password)
-        if (!emptyFields) {
-            sharedViewModel.getUser(username, password)
+        if(passwordTL.error == null && usernameTL.error == null){
+            sharedViewModel.getUser(usernameET.text.toString().trim(),passwordET.text.toString().trim())
         }
-    }
-    private fun checkEmptyFields(username : String , password : String) : Boolean{
-        var emptyField = false
-        if(username == ""){
-            usernameTL.error = getString(R.string.empty_field_error_msg)
-            emptyField = true
-        }
-        if(password == ""){
-            passwordTL.error = getString(R.string.empty_field_error_msg)
-            emptyField = true
-        }
-        return emptyField
     }
 }

@@ -30,23 +30,41 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface TapasTopApiService{
-
-    @GET("users/{username}")
-    suspend fun getUser(@Path("username") username : String) : User
-
-
+    //GET
+    @GET("users/{uName}")
+    suspend fun getUser(@Path("uName") username : String) : Response<UserResponse>
     @GET("users")
+    suspend fun getUsersLike(@Query("search") searchString : String,@Query("except") except : String) : Response<Users>
+    @GET("users/login")
     suspend fun getLoginUser(@Query("username") username : String, @Query("password") password : String) : Response<UserResponse>
+    @GET("/userExists")
+    suspend fun  checkUsernameAvailability(@Query("uName") username : String) : Response<MessageResponse>
+    @GET("users/pendingFriends/{uName}")
+    suspend fun getFriendRequests(@Path("uName") username: String) : Response<Users>
+    @GET("users/getFriends/{uName}")
+    suspend fun getFriends(@Path("uName") username: String) : Response<Users>
 
+    //POST
     @POST("users")
     suspend fun createUser(@Body user : UserResponse) : Response<MessageResponse>
-
+    @POST("recoverPassword")
+    suspend fun recoverPassword(@Query("username") username : String, @Query("code") code : String) : Response<MessageResponse>
     @POST("verifyMail")
     suspend fun sendVerificationMail(@Query("email") email : String, @Query("code") code : String) : Response<MessageResponse>
+    @POST("users/sendRequest")
+    suspend fun sendFriendRequest(@Query("username") username: String,@Query("uNameReq") fromUsername : String) : Response<MessageResponse>
+    @POST("users/addFriend")
+    suspend fun acceptFriendRequest(@Query("username")usernameAccepts: String, @Query("uNameReq") user : String) : Response<Users>
 
-    @PUT("users/{username}")
-    suspend fun updateUser(@Path("username") username: String, @Body user : User)
+    //PUT
+    @PUT("users/newPassword")
+    suspend fun changePassword(@Query("username") username: String,@Query("password") newPassword : String) : Response<MessageResponse>
+    @PUT("users/{uName}")
+    suspend fun updateUser(@Path("uName") username: String, @Body user : UserResponse) : Response<MessageResponse>
 
+    //DELETE
+    @DELETE("users/deleteRequest")
+    suspend fun declineFriendRequest(@Query("username") usernameDeclines: String, @Query("uNameReq") user : String) : Response<Users>
 }
 
 object TapasTopApi{

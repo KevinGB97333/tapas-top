@@ -19,6 +19,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/username_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{viewModel.currentUser.username.toString()}"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textSize="36sp"
+                android:textColor="@color/black"
+                tools:text="Kevin" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_img"
                 android:layout_width="200dp"
@@ -27,166 +41,489 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_textview"
                 app:imageBitmap="@{viewModel.userProfileImg}"
                 app:placeholder="@{@drawable/profile_pic_placeholder}"
                 tools:src="@drawable/profile_pic_male" />
-
             <TextView
-                android:id="@+id/username_textview"
+                android:id="@+id/friends_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_img"
-                android:text="@{viewModel.currentUser.username.toString()}"
-                tools:text="Kevin"
-                android:layout_marginTop="10dp"/>
-
+                android:text="@string/friends_list_title"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toBottomOf="@id/profile_img"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_900"
+                android:textSize="26sp"/>
+            <LinearLayout
+                android:id="@+id/friends_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/friends_title">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/friends_list_rv"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:padding="6dp"
+                    android:clipToPadding="false"
+                    listData="@{viewModel.friends}"
+                    tools:itemCount="4"
+                    tools:visibility="gone"
+                    tools:listitem="@layout/grid_view_item"/>
+                <TextView
+                    android:id="@+id/friends_list_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nothing_to_show_title"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/brandon_grotesque_black"
+                    android:textColor="@color/grey_400"
+                    android:textSize="26sp"/>
+            </LinearLayout>
             <TextView
-                android:id="@+id/name_textview_title"
+                android:id="@+id/friend_requests_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:text="@string/requests_title"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintTop_toBottomOf="@id/friends_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_900"
+                android:textSize="26sp"/>
+            <LinearLayout
+                android:id="@+id/friend_requests_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/friend_requests_title">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/friend_requests_rv"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:padding="6dp"
+                    android:clipToPadding="false"
+                    requestsData="@{viewModel.friendRequests}"
+                    tools:itemCount="4"
+                    tools:visibility="gone"
+                    tools:listitem="@layout/friend_request_item">
+                </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/friend_requests_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nothing_to_show_title"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/brandon_grotesque_black"
+                    android:textColor="@color/grey_400"
+                    android:textSize="26sp"/>
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/name_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_textview"
-                android:text="@string/name_textview"/>
+                app:layout_constraintTop_toBottomOf="@id/friend_requests_layout">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/name_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/name_title" />
 
-            <TextView
-                android:id="@+id/name_textview"
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/name_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.name.toString()}"
+                        tools:text="Kevin guapo" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/last_name_cv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_textview_title"
-                android:text="@{viewModel.currentUser.name.toString()}"
-                tools:text="Kevin guapo" />
-            <TextView
-                android:id="@+id/last_name_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="@string/last_name_textview"
-                app:layout_constraintTop_toBottomOf="@id/name_textview"/>
-            <TextView
-                android:id="@+id/last_name_textview"
-                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/name_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/last_name_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/last_name_title"
+                        />
+                    <TextView
+                        android:id="@+id/last_name_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/last_name_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.surname.toString()}"
+                        tools:text="Guarnizo" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/email_cv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_name_textview_title"
-                android:text="@{viewModel.currentUser.surname.toString()}"
-                tools:text="Guarnizo" />
-            <TextView
-                android:id="@+id/email_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/last_name_textview"
-                android:text="@string/email_title" />
-
-            <TextView
-                android:id="@+id/email_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_textview_title"
-                android:text="@{viewModel.currentUser.email.toString()}"
-                tools:text="kevin@gmail.com" />
-
-            <TextView
-                android:id="@+id/gender_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_textview"
-                android:text="@string/gender_title" />
+                app:layout_constraintTop_toBottomOf="@id/last_name_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/email_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/email_title" />
 
-            <TextView
-                android:id="@+id/gender_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gender_textview_title"
-                android:text="@{viewModel.currentUser.gender.toString()}"
-                tools:text="M" />
+                    <TextView
+                        android:id="@+id/email_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/email_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.email.toString()}"
+                        tools:text="kevin@gmail.com" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/country_textview_title"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/gender_cv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gender_textview"
-                android:text="@string/country_title" />
-
-            <TextView
-                android:id="@+id/country_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/country_textview_title"
-                android:text="@{viewModel.currentUser.country.toString()}"
-                tools:text="Spain" />
-
-            <TextView
-                android:id="@+id/location_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/country_textview"
-                android:text="@string/location_title" />
+                app:layout_constraintTop_toBottomOf="@id/email_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/gender_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/gender_title" />
 
-            <TextView
-                android:id="@+id/location_textview"
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/gender_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gender_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.gender.toString()}"
+                        tools:text="M" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/country_cv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/location_textview_title"
-                android:text="@{viewModel.currentUser.location.toString()}"
-                tools:text="Madrid" />
+                app:layout_constraintTop_toBottomOf="@id/gender_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/country_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/country_title" />
+
+                    <TextView
+                        android:id="@+id/country_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/country_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.country.toString()}"
+                        tools:text="Spain" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/location_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/country_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/location_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/location_title" />
+
+                    <TextView
+                        android:id="@+id/location_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/location_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.currentUser.location.toString()}"
+                        tools:text="Madrid" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/degustations_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/degustation_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textAlignment="center"
+                        android:textSize="26sp"
+                        android:text="@string/degustation_title" />
+
+                    <TextView
+                        android:id="@+id/degustation_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/degustation_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.degustationAdded.toString()}"
+                        tools:text="0" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/locals_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/degustations_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/locals_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:textAlignment="center"
+                        android:text="@string/locals_title" />
+
+                    <TextView
+                        android:id="@+id/locals_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/locals_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.localsAdded.toString()}"
+                        tools:text="0" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/awards_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/locals_cv">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/awards_textview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/brandon_grotesque_black"
+                        android:textColor="@color/grey_900"
+                        android:textSize="26sp"
+                        android:text="@string/awards_title" />
+
+                    <TextView
+                        android:id="@+id/awards_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/awards_textview_title"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/brandon_grotesque_bold_italic"
+                        android:textColor="@color/grey_900"
+                        android:textSize="30sp"
+                        android:text="@{viewModel.awards.toString()}"
+                        tools:text="0" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/description_textview_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/location_textview"
+                app:layout_constraintTop_toBottomOf="@id/awards_cv"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_900"
+                android:textSize="26sp"
                 android:text="@string/description_title" />
 
             <TextView
@@ -196,7 +533,11 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="textStart"
+                android:fontFamily="@font/brandon_grotesque_bold_italic"
+                android:textColor="@color/grey_900"
+                android:textSize="20sp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -204,103 +545,12 @@
                 android:text="@{viewModel.currentUser.description.toString()}"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin placerat mi eget magna volutpat convallis. Vivamus justo leo, accumsan ac vulputate vitae, gravida quis mauris." />
 
-            <TextView
-                android:id="@+id/degustation_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description_textview"
-                android:text="@string/degustation_title" />
-
-            <TextView
-                android:id="@+id/degustation_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/degustation_textview_title"
-                android:text="@{viewModel.degustationAdded.toString()}"
-                tools:text="Numero de degustaciones introducidas" />
-
-            <TextView
-                android:id="@+id/locals_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/degustation_textview"
-                android:text="@string/locals_title" />
-
-            <TextView
-                android:id="@+id/locals_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/locals_textview_title"
-                android:text="@{viewModel.localsAdded.toString()}"
-                tools:text="Numero de locales introducidos" />
-
-            <TextView
-                android:id="@+id/requests_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locals_textview"
-                android:text="@string/requests_title" />
-
-            <TextView
-                android:id="@+id/requests_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/requests_textview_title"
-                android:text="@{viewModel.friendRequests.toString()}"
-                tools:text="Solicitudes pendientes" />
-
-            <TextView
-                android:id="@+id/awards_textview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/requests_textview"
-                android:text="@string/awards_title" />
-
-            <TextView
-                android:id="@+id/awards_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/awards_textview_title"
-                android:text="@{viewModel.awards.toString()}"
-                tools:text="Numero de galardones" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/profile_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -308,7 +558,6 @@
         android:src="@drawable/ic_edit"
         android:backgroundTint="@color/amber_700"
         app:borderWidth="0dp"
-        app:tint = "@color/white"
         android:elevation="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"/>

@@ -12,23 +12,18 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import es.upm.isii.tapastop.databinding.FragmentVerifyMailBinding
+import es.upm.isii.tapastop.databinding.FragmentPasswordRecoveryBinding
 import es.upm.isii.tapastop.model.UserViewModel
-import java.security.Key
 
-class VerifyMailFragment : Fragment() {
-	private var _binding: FragmentVerifyMailBinding? = null
-
+class PasswordRecoveryFragment : Fragment() {
+	private var _binding : FragmentPasswordRecoveryBinding ?= null
 	private val binding get() = _binding!!
 
-	private val sharedViewModel: UserViewModel by activityViewModels()
+	private val sharedViewModel : UserViewModel by activityViewModels()
 
 	private lateinit var editTextOne: EditText
 	private lateinit var editTextTwo: EditText
@@ -42,7 +37,7 @@ class VerifyMailFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentVerifyMailBinding.inflate(inflater, container, false)
+		_binding = FragmentPasswordRecoveryBinding.inflate(inflater,container,false)
 		val root = binding.root
 		frameLayoutRoot = binding.frameLayoutRoot
 		editTextOne = binding.editTextOne
@@ -57,12 +52,9 @@ class VerifyMailFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		sharedViewModel.sendMail()
 		binding.apply {
-
-			viewModel = sharedViewModel
 			resendCodeTextview.setOnClickListener {
-				sharedViewModel.sendMail()
+				sharedViewModel.sendRecoveryEmail(sharedViewModel.usernameRecovery)
 			}
 		}
 	}
@@ -80,7 +72,7 @@ class VerifyMailFragment : Fragment() {
 		setTextChangeListener(fromEditText = editTextThree, targetEditText = editTextFour)
 		setTextChangeListener(fromEditText = editTextFour, done = {
 			if (verifyCode()) {
-				findNavController().navigate(R.id.action_verifyMailFragment_to_postSignUpFragment)
+				findNavController().navigate(R.id.action_passwordRecoveryFragment_to_newPasswordFragment)
 			}
 		})
 		setKeyListener(fromEditText = editTextTwo, backToEditText = editTextOne)

@@ -48,6 +48,7 @@
                 android:id="@+id/login_username_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@null"
                 android:inputType="textAutoComplete"
                 android:hint="@string/username_hint"/>
 
@@ -69,12 +70,14 @@
             app:layout_constraintWidth_percent=".8"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintHorizontal_bias=".5"
+            app:errorIconDrawable="@null"
             app:startIconDrawable="@drawable/ic_password_lock"
             app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_password_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@null"
                 android:inputType="textPassword|textAutoComplete"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,6 +88,7 @@
             android:text="@string/forgot_password"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintHorizontal_bias="1"
+            android:textSize="16sp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             app:layout_constraintBottom_toTopOf="@id/btn_login"

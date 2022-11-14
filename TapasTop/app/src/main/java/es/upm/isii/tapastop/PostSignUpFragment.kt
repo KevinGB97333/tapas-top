@@ -69,7 +69,7 @@ class PostSignUpFragment : Fragment() {
 					}
 					restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
 					restApiStatus.ERROR -> { loadingLayout.visibility = View.GONE
-						Toast.makeText(requireContext(), "Error al completar el registro",
+						Toast.makeText(requireContext(), getString(R.string.try_again_msg),
 							Toast.LENGTH_SHORT)
 							.show()
 					}
@@ -89,7 +89,7 @@ class PostSignUpFragment : Fragment() {
 			}
 			nextScreen.setOnClickListener{
 				setUserValues()
-				 shareViewModel.createUser()
+				shareViewModel.createUser()
 			}
 		}
 	}

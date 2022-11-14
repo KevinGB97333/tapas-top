@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:elevation="7dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/light_white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:clipToPadding="false">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_profile_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:scaleType="centerCrop"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:elevation="10dp"
+                android:clipToOutline="false"
+                tools:src="@drawable/img_example2" />
+            <TextView
+                android:id="@+id/user_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@id/user_profile_img"
+                android:textSize="32sp"
+                android:fontFamily="@font/brandon_grotesque_bold_italic"
+                android:textStyle="bold"
+                tools:text="Kevin97333"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
