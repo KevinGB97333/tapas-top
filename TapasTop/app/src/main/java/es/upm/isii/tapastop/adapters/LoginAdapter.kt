@@ -6,14 +6,14 @@ import es.upm.isii.tapastop.fragments.LoginTabFragment
 import es.upm.isii.tapastop.fragments.SignupTabFragment
 
 
-class LoginAdapter(fm: Fragment) :  FragmentStateAdapter(fm){
+class LoginAdapter(fm: Fragment) : FragmentStateAdapter(fm) {
 
-    override fun getItemCount() : Int = 2
+	override fun getItemCount(): Int = 2
 
-    override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0 -> LoginTabFragment()
-            else -> SignupTabFragment()
-        }
-    }
+	override fun createFragment(position: Int): Fragment {
+		return when (position) {
+			0 -> LoginTabFragment()
+			else -> SignupTabFragment()
+		}
+	}
 }

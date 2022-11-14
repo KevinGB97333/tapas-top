@@ -3,9 +3,7 @@ package es.upm.isii.tapastop.adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.opengl.ETC1.decodeImage
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +20,12 @@ import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus
 import es.upm.isii.tapastop.network.UserSummary
 
-class FriendRequestListAdapter(private val sharedViewModel: UserViewModel,
-							   private val lifecycleOwner: LifecycleOwner,
-							   private val context : Context,
-							   private val errorMsg : String):
+class FriendRequestListAdapter(
+	private val sharedViewModel: UserViewModel,
+	private val lifecycleOwner: LifecycleOwner,
+	private val context: Context,
+	private val errorMsg: String
+) :
 	ListAdapter<UserSummary, FriendRequestListAdapter.FriendRequestViewHolder>(DiffCallback) {
 
 	/**
@@ -41,6 +41,7 @@ class FriendRequestListAdapter(private val sharedViewModel: UserViewModel,
 			return oldItem.username == newItem.username
 		}
 	}
+
 	class FriendRequestViewHolder(
 		private var binding: FriendRequestItemBinding
 	) : RecyclerView.ViewHolder(binding.root) {
@@ -75,11 +76,11 @@ class FriendRequestListAdapter(private val sharedViewModel: UserViewModel,
 		val user = getItem(position)
 		holder.bind(user)
 		val loadingLayout = holder.itemView.findViewById<RelativeLayout>(R.id.loading_layout)
-		sharedViewModel.status.observe(lifecycleOwner){
-			when(it){
+		sharedViewModel.status.observe(lifecycleOwner) {
+			when (it) {
 				restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
 				restApiStatus.ERROR -> {
-					Toast.makeText(context,errorMsg,Toast.LENGTH_SHORT).show()
+					Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
 					loadingLayout.visibility = View.GONE
 				}
 				else -> {

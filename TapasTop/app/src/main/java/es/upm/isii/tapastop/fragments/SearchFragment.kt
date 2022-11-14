@@ -17,18 +17,18 @@ import es.upm.isii.tapastop.model.userGetApiStatus
 
 class SearchFragment : Fragment() {
 
-	private var _binding : FragmentSearchBinding ?= null
+	private var _binding: FragmentSearchBinding? = null
 
 	private val binding get() = _binding!!
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
-	private lateinit var searchET : TextInputEditText
+	private val sharedViewModel: UserViewModel by activityViewModels()
+	private lateinit var searchET: TextInputEditText
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentSearchBinding.inflate(inflater,container,false)
+		_binding = FragmentSearchBinding.inflate(inflater, container, false)
 		val root = binding.root
 		searchET = binding.searchBarText
 		binding.lifecycleOwner = this
@@ -44,24 +44,26 @@ class SearchFragment : Fragment() {
 		binding.apply {
 			viewModel = sharedViewModel
 			this.lifecycleOwner?.let { it ->
-				sharedViewModel.userGetStatus.observe(it){
-					when(it){
+				sharedViewModel.userGetStatus.observe(it) {
+					when (it) {
 						userGetApiStatus.LOADING -> {
 							loadingLayout.visibility = View.VISIBLE
 						}
 						userGetApiStatus.DONE -> {
 							requireActivity().supportFragmentManager.beginTransaction()
-								.replace(R.id.nav_host_fragment,nextFragment,"thisfragment")
+								.replace(R.id.nav_host_fragment, nextFragment, "thisfragment")
 								.addToBackStack(null)
 								.commit()
 						}
-						else -> {loadingLayout.visibility = View.GONE}
+						else -> {
+							loadingLayout.visibility = View.GONE
+						}
 					}
 				}
 			}
 			this.lifecycleOwner?.let {
-				sharedViewModel.status.observe(it){
-					when(it){
+				sharedViewModel.status.observe(it) {
+					when (it) {
 						restApiStatus.LOADING -> {
 							loadingLayout.visibility = View.VISIBLE
 						}
@@ -75,10 +77,10 @@ class SearchFragment : Fragment() {
 					}
 				}
 			}
-			searchET.addTextChangedListener{
-				if(it.toString().isBlank()){
+			searchET.addTextChangedListener {
+				if (it.toString().isBlank()) {
 					searchET.hint = getString(R.string.search_hint)
-				}else{
+				} else {
 					sharedViewModel.getUsers(it.toString())
 				}
 			}

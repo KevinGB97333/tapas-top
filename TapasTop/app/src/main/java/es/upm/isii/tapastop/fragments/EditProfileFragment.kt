@@ -28,32 +28,32 @@ import es.upm.isii.tapastop.model.usernameAvailability
 
 class EditProfileFragment : Fragment() {
 
-	private var _binding : FragmentEditProfileBinding ?= null
+	private var _binding: FragmentEditProfileBinding? = null
 
 	private val binding get() = _binding!!
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
-	private lateinit var profileIW : CircularImageView
-	private lateinit var usernameTL : TextInputLayout
-	private lateinit var  usernameET : TextInputEditText
-	private lateinit var emailTL : TextInputLayout
-	private lateinit var  emailET : TextInputEditText
-	private lateinit var passwordTL : TextInputLayout
-	private lateinit var passwordET : TextInputEditText
-	private lateinit var confirmPasswordTL : TextInputLayout
-	private lateinit var confirmPasswordET : TextInputEditText
-	private lateinit var nameET : TextInputEditText
-	private lateinit var surnameET : TextInputEditText
-	private lateinit var countryET : TextInputEditText
-	private lateinit var locationET : TextInputEditText
-	private lateinit var descriptionET : TextInputEditText
+	private val sharedViewModel: UserViewModel by activityViewModels()
+	private lateinit var profileIW: CircularImageView
+	private lateinit var usernameTL: TextInputLayout
+	private lateinit var usernameET: TextInputEditText
+	private lateinit var emailTL: TextInputLayout
+	private lateinit var emailET: TextInputEditText
+	private lateinit var passwordTL: TextInputLayout
+	private lateinit var passwordET: TextInputEditText
+	private lateinit var confirmPasswordTL: TextInputLayout
+	private lateinit var confirmPasswordET: TextInputEditText
+	private lateinit var nameET: TextInputEditText
+	private lateinit var surnameET: TextInputEditText
+	private lateinit var countryET: TextInputEditText
+	private lateinit var locationET: TextInputEditText
+	private lateinit var descriptionET: TextInputEditText
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentEditProfileBinding.inflate(inflater,container, false)
+		_binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 		val root = binding.root
 		usernameTL = binding.editProfileUsername
 		usernameET = binding.editProfileUsernameText
@@ -77,33 +77,46 @@ class EditProfileFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		binding.apply {
 			viewModel = sharedViewModel
-			sharedViewModel.status.observe(viewLifecycleOwner){
-				when(it){
+			sharedViewModel.status.observe(viewLifecycleOwner) {
+				when (it) {
 					restApiStatus.DONE -> {
 						loadingLayout.visibility = View.GONE
-						Toast.makeText(requireContext(),getString(R.string.update_msg),Toast.LENGTH_SHORT).show()
+						Toast.makeText(
+							requireContext(),
+							getString(R.string.update_msg),
+							Toast.LENGTH_SHORT
+						).show()
 						findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
 					}
-					restApiStatus.LOADING -> { loadingLayout.visibility = View.VISIBLE
+					restApiStatus.LOADING -> {
+						loadingLayout.visibility = View.VISIBLE
 					}
 					restApiStatus.ERROR -> {
-						Toast.makeText(requireContext(),getString(R.string.try_again_msg),Toast.LENGTH_SHORT).show()
+						Toast.makeText(
+							requireContext(),
+							getString(R.string.try_again_msg),
+							Toast.LENGTH_SHORT
+						).show()
 						loadingLayout.visibility = View.GONE
 					}
 					restApiStatus.NOTHING -> {
 					}
 				}
 			}
-			sharedViewModel.checkUsernameStatus.observe(viewLifecycleOwner){
-				when(it){
+			sharedViewModel.checkUsernameStatus.observe(viewLifecycleOwner) {
+				when (it) {
 					usernameAvailability.AVAILABLE -> {
 						loadingLayout.visibility = View.GONE
 						usernameTL.endIconMode = TextInputLayout.END_ICON_CUSTOM
 						usernameTL.error = null
 					}
-					usernameAvailability.LOADING ->{
+					usernameAvailability.LOADING -> {
 						loadingLayout.visibility = View.VISIBLE
-						Toast.makeText(requireContext(),getString(R.string.check_name_availability_msg),Toast.LENGTH_SHORT).show()
+						Toast.makeText(
+							requireContext(),
+							getString(R.string.check_name_availability_msg),
+							Toast.LENGTH_SHORT
+						).show()
 						usernameTL.endIconMode = TextInputLayout.END_ICON_NONE
 					}
 					usernameAvailability.EXIST -> {
@@ -123,67 +136,73 @@ class EditProfileFragment : Fragment() {
 			usernameET.addTextChangedListener {
 				if (it.toString().isBlank()) {
 					usernameTL.error = getString(R.string.empty_field_error_msg)
-				}else if(it.toString() == sharedViewModel.currentUser.value!!.username.toString()) {
+				} else if (it.toString() == sharedViewModel.currentUser.value!!.username.toString()) {
 					usernameTL.error = null
 					usernameTL.endIconMode = TextInputLayout.END_ICON_CUSTOM
-				}else{
+				} else {
 					usernameTL.error = null
 					usernameTL.endIconMode = TextInputLayout.END_ICON_NONE
 				}
 			}
 			emailET.addTextChangedListener {
-				if(it.toString().isBlank()){
+				if (it.toString().isBlank()) {
 					emailTL.error = getString(R.string.empty_field_error_msg)
-				}else if(!Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()){
+				} else if (!Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()) {
 					emailTL.error = getString(R.string.invalid_mail_msg)
-				}else{
+				} else {
 					emailTL.error = null
 				}
 			}
 			passwordET.addTextChangedListener {
-				if(it.toString().isBlank()){
+				if (it.toString().isBlank()) {
 					passwordTL.error = getString(R.string.empty_field_error_msg)
-				}else{
-					if(confirmPasswordET.text.toString().isNotBlank() && it.toString() != confirmPasswordET.text.toString()) {
+				} else {
+					if (confirmPasswordET.text.toString()
+							.isNotBlank() && it.toString() != confirmPasswordET.text.toString()
+					) {
 						confirmPasswordTL.error = getString(R.string.passwords_unmatch_msg)
 					}
-					if(it.toString() == confirmPasswordET.text.toString()){
+					if (it.toString() == confirmPasswordET.text.toString()) {
 						confirmPasswordTL.error = null
 					}
 					passwordTL.error = null
 				}
 			}
 			confirmPasswordET.addTextChangedListener {
-				if(it.toString().isBlank() || ( passwordET.text.toString().isNotBlank() && it.toString() != passwordET.text.toString())){
+				if (it.toString().isBlank() || (passwordET.text.toString()
+						.isNotBlank() && it.toString() != passwordET.text.toString())
+				) {
 					confirmPasswordTL.error = getString(R.string.passwords_unmatch_msg)
-				}else if(it.toString() == passwordET.text.toString()){
+				} else if (it.toString() == passwordET.text.toString()) {
 					confirmPasswordTL.error = null
 				}
 			}
-			editProfileImg.setOnClickListener{
+			editProfileImg.setOnClickListener {
 				if (ActivityCompat.checkSelfPermission(
 						requireActivity(),
 						Manifest.permission.READ_EXTERNAL_STORAGE
 					) != PackageManager.PERMISSION_GRANTED
 				) {
-					requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000);
+					requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000)
 				} else {
-					pickImageGallery();
+					pickImageGallery()
 				}
 			}
-			editProfileSave.setOnClickListener{
+			editProfileSave.setOnClickListener {
 				isValidUsername()
 				checkFields()
 			}
 		}
 	}
-	private fun checkFields(){
-		if(usernameTL.endIconMode == TextInputLayout.END_ICON_CUSTOM && emailTL.error == null && passwordTL.error == null && confirmPasswordTL.error == null){
+
+	private fun checkFields() {
+		if (usernameTL.endIconMode == TextInputLayout.END_ICON_CUSTOM && emailTL.error == null && passwordTL.error == null && confirmPasswordTL.error == null) {
 			setUser()
 			sharedViewModel.updateUser()
 		}
 	}
-	private fun setUser(){
+
+	private fun setUser() {
 		sharedViewModel.setProfileImage(image = profileIW.drawToBitmap())
 		sharedViewModel.setUsername(username = usernameET.text.toString())
 		sharedViewModel.setUserEmail(email = emailET.text.toString())
@@ -194,12 +213,14 @@ class EditProfileFragment : Fragment() {
 		sharedViewModel.setLocation(location = locationET.text.toString())
 		sharedViewModel.setDescription(description = descriptionET.text.toString())
 	}
-	private fun isValidUsername(){
+
+	private fun isValidUsername() {
 		val username = usernameET.text.toString()
-		if(usernameTL.error == null  && usernameTL.endIconMode != TextInputLayout.END_ICON_CUSTOM && username != sharedViewModel.userBackup.username){
+		if (usernameTL.error == null && usernameTL.endIconMode != TextInputLayout.END_ICON_CUSTOM && username != sharedViewModel.userBackup.username) {
 			sharedViewModel.checkUsername(username)
 		}
 	}
+
 	private fun pickImageGallery() {
 		val cameraIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 		startActivityForResult(cameraIntent, PostSignUpFragment.IMAGE_REQUEST_CODE)
@@ -208,8 +229,8 @@ class EditProfileFragment : Fragment() {
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == 100) {
-				val returnUri = data?.data;
-				profileIW.setImageURI(returnUri);
+				val returnUri = data?.data
+				profileIW.setImageURI(returnUri)
 			}
 		}
 	}

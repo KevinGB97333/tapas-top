@@ -15,39 +15,39 @@ import es.upm.isii.tapastop.databinding.FragmentInitialBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
 class InitialFragment : Fragment() {
-    private var _binding : FragmentInitialBinding?= null
-    private val binding get() = _binding!!
-    private lateinit var loginAdapter: LoginAdapter
-	private lateinit var tabLayout : TabLayout
-	private lateinit var viewPager : ViewPager2
+	private var _binding: FragmentInitialBinding? = null
+	private val binding get() = _binding!!
+	private lateinit var loginAdapter: LoginAdapter
+	private lateinit var tabLayout: TabLayout
+	private lateinit var viewPager: ViewPager2
 
-    private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentInitialBinding.inflate(inflater, container, false)
-        val root : View = binding.root
-        return root
-    }
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		_binding = FragmentInitialBinding.inflate(inflater, container, false)
+		val root: View = binding.root
+		return root
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loginAdapter = LoginAdapter(this)
-        tabLayout = binding.tabLayout
-        viewPager = binding.viewPager
-        binding.apply {
-            viewModel = sharedViewModel
-            viewPager.adapter = loginAdapter
-            TabLayoutMediator(tabLayout, viewPager) {tab, position ->
-                tab.text = when(position){
-                    0 -> getText(R.string.login_title)
-                    else -> getText(R.string.signup_title)
-                }
-            }.attach()
-        }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		loginAdapter = LoginAdapter(this)
+		tabLayout = binding.tabLayout
+		viewPager = binding.viewPager
+		binding.apply {
+			viewModel = sharedViewModel
+			viewPager.adapter = loginAdapter
+			TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+				tab.text = when (position) {
+					0 -> getText(R.string.login_title)
+					else -> getText(R.string.signup_title)
+				}
+			}.attach()
+		}
 
 
-    }
+	}
 }

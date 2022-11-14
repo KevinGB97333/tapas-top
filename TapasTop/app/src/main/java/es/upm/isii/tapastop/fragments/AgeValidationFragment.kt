@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentAgeValidationBinding
-import java.util.Calendar
+import java.util.*
 
 
 class AgeValidationFragment : Fragment() {
-	private var _binding : FragmentAgeValidationBinding?= null
+	private var _binding: FragmentAgeValidationBinding? = null
 	private val binding get() = _binding!!
 
 	private lateinit var datePicker: DatePicker
@@ -26,7 +26,7 @@ class AgeValidationFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentAgeValidationBinding.inflate(inflater,container,false)
+		_binding = FragmentAgeValidationBinding.inflate(inflater, container, false)
 		val root = binding.root
 		return root
 	}
@@ -39,12 +39,12 @@ class AgeValidationFragment : Fragment() {
 				Manifest.permission.READ_EXTERNAL_STORAGE
 			) != PackageManager.PERMISSION_GRANTED
 		) {
-			requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000);
+			requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000)
 		}
 		calendar.add(Calendar.YEAR, -18)
 		datePicker.maxDate = calendar.timeInMillis
 		binding.apply {
-			nextFb.setOnClickListener{
+			nextFb.setOnClickListener {
 				findNavController().navigate(R.id.action_ageValidationFragment_to_initialFragment)
 			}
 		}

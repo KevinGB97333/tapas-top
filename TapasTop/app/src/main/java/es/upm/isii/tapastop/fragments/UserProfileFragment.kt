@@ -14,17 +14,17 @@ import es.upm.isii.tapastop.model.restApiStatus
 
 class UserProfileFragment : Fragment() {
 
-	private var _binding : FragmentUserProfileBinding ?=null
+	private var _binding: FragmentUserProfileBinding? = null
 	private val binding get() = _binding!!
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentUserProfileBinding.inflate(inflater,container,false)
+		_binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 		val root = binding.root
 		sharedViewModel.resetStatus()
 		return root
@@ -35,18 +35,22 @@ class UserProfileFragment : Fragment() {
 		binding.apply {
 			viewModel = sharedViewModel
 
-			sharedViewModel.status.observe(viewLifecycleOwner){
-				when(it){
-					restApiStatus.DONE ->{
+			sharedViewModel.status.observe(viewLifecycleOwner) {
+				when (it) {
+					restApiStatus.DONE -> {
 						requestActionBtn.visibility = View.GONE
-						Toast.makeText(requireContext(),getString(R.string.pending_friend_request),Toast.LENGTH_SHORT).show()
+						Toast.makeText(
+							requireContext(),
+							getString(R.string.pending_friend_request),
+							Toast.LENGTH_SHORT
+						).show()
 					}
-					else ->{
+					else -> {
 					}
 				}
 			}
-			requestActionBtn.setOnClickListener{
-				if(!sharedViewModel.requested.contains(usernameTextview.text.toString())){
+			requestActionBtn.setOnClickListener {
+				if (!sharedViewModel.requested.contains(usernameTextview.text.toString())) {
 					sharedViewModel.sendFriendRequest()
 				}
 			}

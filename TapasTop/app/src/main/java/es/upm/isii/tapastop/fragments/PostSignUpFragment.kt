@@ -23,7 +23,6 @@ import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus
 
 
-
 class PostSignUpFragment : Fragment() {
 	companion object {
 		val IMAGE_REQUEST_CODE = 100
@@ -33,15 +32,15 @@ class PostSignUpFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	// ViewModel object instance corresponding to the UserViewModel.kt class
-	private val shareViewModel : UserViewModel by activityViewModels()
+	private val shareViewModel: UserViewModel by activityViewModels()
 
 	private lateinit var profileImgIW: CircularImageView
 
-	private lateinit var nameET : TextInputEditText
-	private lateinit var lastNameET : TextInputEditText
-	private lateinit var countryET : TextInputEditText
-	private lateinit var locationET : TextInputEditText
-	private lateinit var descriptionET : TextInputEditText
+	private lateinit var nameET: TextInputEditText
+	private lateinit var lastNameET: TextInputEditText
+	private lateinit var countryET: TextInputEditText
+	private lateinit var locationET: TextInputEditText
+	private lateinit var descriptionET: TextInputEditText
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -63,15 +62,19 @@ class PostSignUpFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		binding.apply {
 			viewModel = shareViewModel
-			shareViewModel.status.observe(viewLifecycleOwner){
-				when(it){
-					restApiStatus.DONE -> {loadingLayout.visibility = View.GONE
+			shareViewModel.status.observe(viewLifecycleOwner) {
+				when (it) {
+					restApiStatus.DONE -> {
+						loadingLayout.visibility = View.GONE
 						findNavController().navigate(R.id.action_postSignUpFragment_to_mainMenuFragment)
 					}
 					restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
-					restApiStatus.ERROR -> { loadingLayout.visibility = View.GONE
-						Toast.makeText(requireContext(), getString(R.string.try_again_msg),
-							Toast.LENGTH_SHORT)
+					restApiStatus.ERROR -> {
+						loadingLayout.visibility = View.GONE
+						Toast.makeText(
+							requireContext(), getString(R.string.try_again_msg),
+							Toast.LENGTH_SHORT
+						)
 							.show()
 					}
 					restApiStatus.NOTHING -> {}
@@ -83,19 +86,19 @@ class PostSignUpFragment : Fragment() {
 						Manifest.permission.READ_EXTERNAL_STORAGE
 					) != PackageManager.PERMISSION_GRANTED
 				) {
-					requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000);
+					requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 2000)
 				} else {
-					pickImageGallery();
+					pickImageGallery()
 				}
 			}
-			nextScreen.setOnClickListener{
+			nextScreen.setOnClickListener {
 				setUserValues()
 				shareViewModel.createUser()
 			}
 		}
 	}
 
-	private fun setUserValues(){
+	private fun setUserValues() {
 		shareViewModel.setProfileImage(profileImgIW.drawToBitmap())
 		shareViewModel.setName(nameET.text.toString().trim())
 		shareViewModel.setLastName(lastNameET.text.toString().trim())
@@ -103,6 +106,7 @@ class PostSignUpFragment : Fragment() {
 		shareViewModel.setLocation(locationET.text.toString().trim())
 		shareViewModel.setDescription(descriptionET.text.toString().trim())
 	}
+
 	private fun pickImageGallery() {
 		val cameraIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 		startActivityForResult(cameraIntent, IMAGE_REQUEST_CODE)
@@ -111,8 +115,8 @@ class PostSignUpFragment : Fragment() {
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == 100) {
-				val returnUri = data?.data;
-				profileImgIW.setImageURI(returnUri);
+				val returnUri = data?.data
+				profileImgIW.setImageURI(returnUri)
 			}
 		}
 	}

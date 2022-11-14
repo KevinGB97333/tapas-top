@@ -18,29 +18,29 @@ import es.upm.isii.tapastop.model.UserViewModel
 
 class SignupTabFragment : Fragment() {
 
-    // Binding object instance corresponding to the fragment_signup_tab.xml layout
+	// Binding object instance corresponding to the fragment_signup_tab.xml layout
 	private var _binding: FragmentSignupTabBinding? = null
 	private val binding get() = _binding!!
 
-    // ViewModel object instance corresponding to the UserViewModel.kt class
-    private val shareViewModel : UserViewModel by activityViewModels()
+	// ViewModel object instance corresponding to the UserViewModel.kt class
+	private val shareViewModel: UserViewModel by activityViewModels()
 
-    //TextInputLayouts
+	//TextInputLayouts
 	private lateinit var usernameTL: TextInputLayout
 	private lateinit var emailTL: TextInputLayout
 	private lateinit var passwordTL: TextInputLayout
 	private lateinit var confirmPasswordTL: TextInputLayout
 
-    //EditText
+	//EditText
 	private lateinit var usernameET: TextInputEditText
 	private lateinit var emailET: TextInputEditText
 	private lateinit var passwordET: TextInputEditText
 	private lateinit var confirmPasswordET: TextInputEditText
 
-    //Sign Up Button
+	//Sign Up Button
 	private lateinit var signUpBtn: Button
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -65,7 +65,7 @@ class SignupTabFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		binding?.apply {
+		binding.apply {
 
 			viewModel = shareViewModel
 
@@ -104,10 +104,10 @@ class SignupTabFragment : Fragment() {
 		}
 	}
 
-    /**
-     * Validate all of the fields
-     */
-    private fun validateFields() {
+	/**
+	 * Validate all of the fields
+	 */
+	private fun validateFields() {
 		val username = usernameET.text.toString().trim()
 		val email = emailET.text.toString().trim()
 		val password = passwordET.text.toString().trim()
@@ -137,14 +137,14 @@ class SignupTabFragment : Fragment() {
 		}
 	}
 
-    /**
-     * Verify if any field is empty
-     *
-     * @param username
-     * @param email
-     * @param password
-     * @param confirmPassword
-     */
+	/**
+	 * Verify if any field is empty
+	 *
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @param confirmPassword
+	 */
 	private fun checkEmptyFields(
 		username: String,
 		email: String,
@@ -171,31 +171,31 @@ class SignupTabFragment : Fragment() {
 		return emptyField
 	}
 
-    /**
-     * Verify if both password introduced are the same
-     *
-     * @param password first
-     * @param confirmedPassword confirmation
-     */
-    private fun isSamePassword(password: String, confirmedPassword: String): Boolean {
+	/**
+	 * Verify if both password introduced are the same
+	 *
+	 * @param password first
+	 * @param confirmedPassword confirmation
+	 */
+	private fun isSamePassword(password: String, confirmedPassword: String): Boolean {
 		return password == confirmedPassword
 	}
 
-    /**
-     * Validate the username introduced
-     *
-     * @param username to be validated
-     */
-    private fun isValidUsername(username: String) : Boolean{
-        return username.isNotBlank()
-    }
+	/**
+	 * Validate the username introduced
+	 *
+	 * @param username to be validated
+	 */
+	private fun isValidUsername(username: String): Boolean {
+		return username.isNotBlank()
+	}
 
-    /**
-     * Verify the email introduced
-     *
-     * @param email to be verified
-     */
-    private fun isValidEmail(email : String) : Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+	/**
+	 * Verify the email introduced
+	 *
+	 * @param email to be verified
+	 */
+	private fun isValidEmail(email: String): Boolean {
+		return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+	}
 }

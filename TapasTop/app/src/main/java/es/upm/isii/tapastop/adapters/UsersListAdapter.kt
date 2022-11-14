@@ -3,32 +3,28 @@ package es.upm.isii.tapastop.adapters
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.DiffUtil
-import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.GridViewItemBinding
 import es.upm.isii.tapastop.model.UserViewModel
-import es.upm.isii.tapastop.model.userGetApiStatus
 import es.upm.isii.tapastop.network.UserSummary
 
-class UsersListAdapter(private var sharedViewModel : UserViewModel ) :
-	ListAdapter<UserSummary, UsersListAdapter.UsersViewHolder> (DiffCallback){
+class UsersListAdapter(private var sharedViewModel: UserViewModel) :
+	ListAdapter<UserSummary, UsersListAdapter.UsersViewHolder>(DiffCallback) {
 
 	class UsersViewHolder(
-		private var binding : GridViewItemBinding
-	) : RecyclerView.ViewHolder(binding.root){
-		fun bind(user : UserSummary){
+		private var binding: GridViewItemBinding
+	) : RecyclerView.ViewHolder(binding.root) {
+		fun bind(user: UserSummary) {
 			binding.userUsername.text = user.username
 			binding.userProfileImg.setImageBitmap(decodeImage(user.profile_img))
 			binding.executePendingBindings()
 		}
 	}
+
 	/**
 	 * Allows the RecyclerView to determine which items have changed when the [List] of
 	 * [UserSummary] has been updated.
@@ -54,13 +50,14 @@ class UsersListAdapter(private var sharedViewModel : UserViewModel ) :
 			GridViewItemBinding.inflate(LayoutInflater.from(parent.context))
 		)
 	}
+
 	/**
 	 * Replaces the contents of a view (invoked by the layout manager)
 	 */
 	override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
 		val user = getItem(position)
 		holder.bind(user)
-		holder.itemView.setOnClickListener{
+		holder.itemView.setOnClickListener {
 			sharedViewModel.getSpecificUser(user.username)
 		}
 	}

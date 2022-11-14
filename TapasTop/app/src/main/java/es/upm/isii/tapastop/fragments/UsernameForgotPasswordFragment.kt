@@ -14,16 +14,16 @@ import es.upm.isii.tapastop.model.UserViewModel
 
 class UsernameForgotPasswordFragment : Fragment() {
 
-	private var _binding : FragmentUsernameForgotPasswordBinding ?= null
+	private var _binding: FragmentUsernameForgotPasswordBinding? = null
 	private val binding get() = _binding!!
-	private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentUsernameForgotPasswordBinding.inflate(inflater,container,false)
+		_binding = FragmentUsernameForgotPasswordBinding.inflate(inflater, container, false)
 		val root = binding.root
 
 		return root
@@ -32,15 +32,15 @@ class UsernameForgotPasswordFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		binding.apply {
-			forgotPasswordUsernameText.addTextChangedListener{
-				if(it.toString().isBlank()){
+			forgotPasswordUsernameText.addTextChangedListener {
+				if (it.toString().isBlank()) {
 					forgotPasswordUsername.error = getString(R.string.empty_field_error_msg)
-				}else{
+				} else {
 					forgotPasswordUsername.error = null
 				}
 			}
-			continueButton.setOnClickListener{
-				if(forgotPasswordUsername.error == null){
+			continueButton.setOnClickListener {
+				if (forgotPasswordUsername.error == null) {
 					findNavController().navigate(R.id.action_usernameForgotPasswordFragment_to_passwordRecoveryFragment)
 					sharedViewModel.sendRecoveryEmail(forgotPasswordUsernameText.text.toString())
 				}

@@ -3,18 +3,14 @@ package es.upm.isii.tapastop.model
 import android.accounts.NetworkErrorException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.opengl.ETC1.decodeImage
-import android.opengl.ETC1.encodeImage
-
 import android.util.Base64
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.upm.isii.tapastop.network.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 
@@ -22,7 +18,7 @@ enum class restApiStatus { NOTHING, LOADING, ERROR, DONE }
 
 enum class usernameAvailability { NOTHING, LOADING, EXIST, AVAILABLE, ERROR }
 
-enum class userGetApiStatus { NOTHING, LOADING, DONE}
+enum class userGetApiStatus { NOTHING, LOADING, DONE }
 class UserViewModel : ViewModel() {
 
 
@@ -48,7 +44,7 @@ class UserViewModel : ViewModel() {
 
 	//Friends of the current user
 	private val _friends = MutableLiveData<Users>()
-	val friends : LiveData<Users> = _friends
+	val friends: LiveData<Users> = _friends
 
 	//Number of awards of the current user
 	private val _awards = MutableLiveData<Int>()
@@ -66,28 +62,32 @@ class UserViewModel : ViewModel() {
 	lateinit var userBackup: User
 
 	private val _users = MutableLiveData<Users>()
-	val users : LiveData<Users> =_users
+	val users: LiveData<Users> = _users
 
 	private val _tempUser = MutableLiveData<User>()
-	val tempUser : LiveData<User> = _tempUser
+	val tempUser: LiveData<User> = _tempUser
 
 	private val _tempUserImg = MutableLiveData<Bitmap>()
 	val tempUserImg: LiveData<Bitmap> = _tempUserImg
 
-	var requested : MutableList<String> = mutableListOf()
+	var requested: MutableList<String> = mutableListOf()
 	var code: String = ""
-	var usernameRecovery : String = ""
+	var usernameRecovery: String = ""
+
 	init {
 		resetUser()
 	}
-	fun resetStatus(){
+
+	fun resetStatus() {
 		_checkUsernameStatus.value = usernameAvailability.NOTHING
 		_status.value = restApiStatus.NOTHING
 		_userGetStatus.value = userGetApiStatus.NOTHING
 	}
-	fun resetUsersList(){
+
+	fun resetUsersList() {
 		_users.value = Users(mutableListOf())
 	}
+
 	/**
 	 * Resets values to default when the viewModel initializes
 	 */
@@ -98,7 +98,7 @@ class UserViewModel : ViewModel() {
 		requested = mutableListOf()
 		_users.value = Users(mutableListOf())
 		profilePicIsSet = false
-		_tempUser.value =User("", "", "", "", "", "", "", "", "", "")
+		_tempUser.value = User("", "", "", "", "", "", "", "", "", "")
 		_currentUser.value = User("", "", "", "", "", "", "", "", "", "")
 		_degustationsAdded.value = 0
 		_localsAdded.value = 0
@@ -106,97 +106,113 @@ class UserViewModel : ViewModel() {
 		_friends.value = Users(mutableListOf())
 		_awards.value = 0
 	}
-	fun sendFriendRequest(){
+
+	fun sendFriendRequest() {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.sendFriendRequest(_tempUser.value!!.username, _currentUser.value!!.username)
-				when(response.code()){
+			try {
+				val response = TapasTopApi.retrofitService.sendFriendRequest(
+					_tempUser.value!!.username,
+					_currentUser.value!!.username
+				)
+				when (response.code()) {
 					200 -> {
-						requested.add(requested.size,_tempUser.value!!.username)
+						requested.add(requested.size, _tempUser.value!!.username)
 						_status.value = restApiStatus.DONE
 					}
-					else ->  {
+					else -> {
 						_status.value = restApiStatus.ERROR
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
-	fun getSpecificUser(username: String){
+
+	fun getSpecificUser(username: String) {
 		viewModelScope.launch {
 			_userGetStatus.value = userGetApiStatus.LOADING
-			try{
+			try {
 				val response = TapasTopApi.retrofitService.getUser(username)
-				when(response.code()){
+				when (response.code()) {
 					200 -> {
 						_tempUser.value = response.body()!!.user
 						_tempUserImg.value = decodeImage(_tempUser.value?.profileImg)
 						_userGetStatus.value = userGetApiStatus.DONE
 					}
-					else -> {_userGetStatus.value = userGetApiStatus.NOTHING}
+					else -> {
+						_userGetStatus.value = userGetApiStatus.NOTHING
+					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_userGetStatus.value = userGetApiStatus.NOTHING
 			}
 		}
 	}
-	fun getUsers(searchString : String){
+
+	fun getUsers(searchString: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.getUsersLike(searchString, _currentUser.value!!.username.toString())
-				when(response.code()){
+			try {
+				val response = TapasTopApi.retrofitService.getUsersLike(
+					searchString,
+					_currentUser.value!!.username.toString()
+				)
+				when (response.code()) {
 					200 -> {
 						_users.value = response.body()
 						_status.value = restApiStatus.DONE
 					}
-					else ->{
+					else -> {
 						_status.value = restApiStatus.ERROR
 						_users.value = Users(mutableListOf())
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 				_users.value = Users(mutableListOf())
 			}
 		}
 	}
-	fun updatePassword(newPassword : String){
+
+	fun updatePassword(newPassword: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.changePassword(usernameRecovery, newPassword)
-				when(response.code()){
+			try {
+				val response =
+					TapasTopApi.retrofitService.changePassword(usernameRecovery, newPassword)
+				when (response.code()) {
 					200 -> _status.value = restApiStatus.DONE
 					else -> _status.value = restApiStatus.ERROR
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
-	fun sendRecoveryEmail(username: String){
+
+	fun sendRecoveryEmail(username: String) {
 		generateCode()
 		usernameRecovery = username
 		viewModelScope.launch {
-			try{
-				TapasTopApi.retrofitService.recoverPassword(username,code)
-			}catch (e : Exception){
+			try {
+				TapasTopApi.retrofitService.recoverPassword(username, code)
+			} catch (e: Exception) {
 				Log.d("Send email recovery exception", "${e.printStackTrace()}")
 			}
 		}
 	}
-	fun updateUser(){
+
+	fun updateUser() {
 		_status.value = restApiStatus.LOADING
-		try{
+		try {
 			viewModelScope.launch {
 				_currentUser.value?.profileImg = encodeImage(_userProfileImg.value)
 				val updatedUser: UserResponse = _currentUser.value?.let { UserResponse(it) }!!
-				val response = TapasTopApi.retrofitService.updateUser(userBackup.username,updatedUser)
-				when(response.code()){
+				val response =
+					TapasTopApi.retrofitService.updateUser(userBackup.username, updatedUser)
+				when (response.code()) {
 					200 -> {
 						_status.value = restApiStatus.DONE
 					}
@@ -206,11 +222,12 @@ class UserViewModel : ViewModel() {
 					}
 				}
 			}
-		}catch (e: Exception){
+		} catch (e: Exception) {
 			_currentUser.value = userBackup
 			_status.value = restApiStatus.ERROR
 		}
 	}
+
 	fun checkUsername(username: String) {
 		_checkUsernameStatus.value = usernameAvailability.LOADING
 		try {
@@ -230,9 +247,9 @@ class UserViewModel : ViewModel() {
 					}
 				}
 			}
-		}catch(e : Exception){
-            _checkUsernameStatus.value = usernameAvailability.ERROR
-        }
+		} catch (e: Exception) {
+			_checkUsernameStatus.value = usernameAvailability.ERROR
+		}
 	}
 
 	/**
@@ -251,28 +268,29 @@ class UserViewModel : ViewModel() {
 					200 -> {
 						_currentUser.value = response.body()!!.user
 						_userProfileImg.value = decodeImage(_currentUser.value?.profileImg)
-						var responseFriends : Response<Users>
+						var responseFriends: Response<Users>
 
 						val jobFriendRequests = launch {
-							responseFriends = TapasTopApi.retrofitService.getFriendRequests(username)
-							when(responseFriends.code()){
+							responseFriends =
+								TapasTopApi.retrofitService.getFriendRequests(username)
+							when (responseFriends.code()) {
 								200 -> _friendRequests.value = responseFriends.body()
 								400 -> _status.value = restApiStatus.ERROR
 							}
 						}
 						jobFriendRequests.join()
-						if(_status.value == restApiStatus.ERROR){
+						if (_status.value == restApiStatus.ERROR) {
 							throw NetworkErrorException()
 						}
 						val jobFriends = launch {
 							responseFriends = TapasTopApi.retrofitService.getFriends(username)
-							when(responseFriends.code()){
+							when (responseFriends.code()) {
 								200 -> _friends.value = responseFriends.body()
 								400 -> _status.value = restApiStatus.ERROR
 							}
 						}
 						jobFriends.join()
-						if(_status.value == restApiStatus.ERROR){
+						if (_status.value == restApiStatus.ERROR) {
 							throw NetworkErrorException()
 						}
 						_status.value = restApiStatus.DONE
@@ -289,67 +307,80 @@ class UserViewModel : ViewModel() {
 			}
 		}
 	}
-	fun userInFriends() : Boolean{
-		var user : UserSummary ?=null
+
+	fun userInFriends(): Boolean {
+		var user: UserSummary? = null
 		user = _friends.value?.users?.find {
 			it.username == _tempUser.value?.username
 		}
-		if(user == null){
+		if (user == null) {
 			return false
 		}
-		return user?.username!=""
+		return user.username != ""
 	}
-	fun getFriendRequestsUpdate(){
+
+	fun getFriendRequestsUpdate() {
 		viewModelScope.launch {
-			try{
-				val responseFriends = TapasTopApi.retrofitService.getFriendRequests(_currentUser.value!!.username)
-				when(responseFriends.code()){
+			try {
+				val responseFriends =
+					TapasTopApi.retrofitService.getFriendRequests(_currentUser.value!!.username)
+				when (responseFriends.code()) {
 					200 -> _friendRequests.value = responseFriends.body()
-					else ->{}
+					else -> {}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 			}
 		}
 	}
-	fun getFriendsUpdate(){
+
+	fun getFriendsUpdate() {
 		viewModelScope.launch {
-			try{
-				val responseFriends = TapasTopApi.retrofitService.getFriends(_currentUser.value!!.username)
-				when(responseFriends.code()){
+			try {
+				val responseFriends =
+					TapasTopApi.retrofitService.getFriends(_currentUser.value!!.username)
+				when (responseFriends.code()) {
 					200 -> _friends.value = responseFriends.body()
 					else -> {}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 			}
 		}
 	}
-	fun acceptRequest(username: String, pos: Int){
+
+	fun acceptRequest(username: String, pos: Int) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.acceptFriendRequest(_currentUser.value!!.username, username )
-				when(response.code()){
+			try {
+				val response = TapasTopApi.retrofitService.acceptFriendRequest(
+					_currentUser.value!!.username,
+					username
+				)
+				when (response.code()) {
 					200 -> {
 						val user = _friendRequests.value!!.users.removeAt(pos)
 						_friendRequests.value = response.body()
-						_friends.value!!.users.add(_friends.value!!.users.size,user)
+						_friends.value!!.users.add(_friends.value!!.users.size, user)
 						_status.value = restApiStatus.NOTHING
 					}
 					400 -> {
 						_status.value = restApiStatus.ERROR
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
-	fun declineRequest(username: String, pos : Int){
+
+	fun declineRequest(username: String, pos: Int) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.declineFriendRequest(_currentUser.value!!.username,username)
-				when(response.code()){
+			try {
+				val response = TapasTopApi.retrofitService.declineFriendRequest(
+					_currentUser.value!!.username,
+					username
+				)
+				when (response.code()) {
 					200 -> {
 						_friendRequests.value!!.users.removeAt(pos)
 						_friendRequests.value = response.body()
@@ -359,11 +390,12 @@ class UserViewModel : ViewModel() {
 						_status.value = restApiStatus.ERROR
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
+
 	/**
 	 * Send request to the server to send verification email to the current user
 	 */
@@ -388,8 +420,8 @@ class UserViewModel : ViewModel() {
 			try {
 				_currentUser.value?.profileImg = encodeImage(_userProfileImg.value)
 				val newUser: UserResponse = _currentUser.value?.let { UserResponse(it) }!!
-				val response = newUser?.let { TapasTopApi.retrofitService.createUser(it) }
-				when (response?.code()) {
+				val response = newUser.let { TapasTopApi.retrofitService.createUser(it) }
+				when (response.code()) {
 					200 -> _status.value = restApiStatus.DONE
 					else -> _status.value = restApiStatus.ERROR
 				}

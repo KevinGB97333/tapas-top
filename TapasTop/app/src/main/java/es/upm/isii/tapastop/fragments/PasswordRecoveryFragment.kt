@@ -20,10 +20,10 @@ import es.upm.isii.tapastop.databinding.FragmentPasswordRecoveryBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
 class PasswordRecoveryFragment : Fragment() {
-	private var _binding : FragmentPasswordRecoveryBinding ?= null
+	private var _binding: FragmentPasswordRecoveryBinding? = null
 	private val binding get() = _binding!!
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 
 	private lateinit var editTextOne: EditText
 	private lateinit var editTextTwo: EditText
@@ -37,7 +37,7 @@ class PasswordRecoveryFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentPasswordRecoveryBinding.inflate(inflater,container,false)
+		_binding = FragmentPasswordRecoveryBinding.inflate(inflater, container, false)
 		val root = binding.root
 		frameLayoutRoot = binding.frameLayoutRoot
 		editTextOne = binding.editTextOne

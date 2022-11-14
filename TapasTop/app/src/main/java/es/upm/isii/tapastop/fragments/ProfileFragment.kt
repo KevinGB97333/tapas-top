@@ -16,30 +16,30 @@ import es.upm.isii.tapastop.databinding.FragmentProfileBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
 class ProfileFragment : Fragment() {
-	private var _binding : FragmentProfileBinding? = null
+	private var _binding: FragmentProfileBinding? = null
 
-	private val binding get()=_binding!!
+	private val binding get() = _binding!!
 
-	private lateinit var profileImgIW : CircleImageView
-	private lateinit var usernameTW : TextView
-	private lateinit var nameTW : TextView
-	private lateinit var emailTW : TextView
-	private lateinit var genderTW : TextView
-	private lateinit var countryTW : TextView
-	private lateinit var locationTW : TextView
-	private lateinit var descriptionTW : TextView
-	private lateinit var degustationsTW : TextView
-	private lateinit var localsTW : TextView
-	private lateinit var requestsTW : TextView
-	private lateinit var awardsTW : TextView
+	private lateinit var profileImgIW: CircleImageView
+	private lateinit var usernameTW: TextView
+	private lateinit var nameTW: TextView
+	private lateinit var emailTW: TextView
+	private lateinit var genderTW: TextView
+	private lateinit var countryTW: TextView
+	private lateinit var locationTW: TextView
+	private lateinit var descriptionTW: TextView
+	private lateinit var degustationsTW: TextView
+	private lateinit var localsTW: TextView
+	private lateinit var requestsTW: TextView
+	private lateinit var awardsTW: TextView
 
-	private val sharedViewModel : UserViewModel by activityViewModels()
+	private val sharedViewModel: UserViewModel by activityViewModels()
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		_binding = FragmentProfileBinding.inflate(inflater,container,false)
+		_binding = FragmentProfileBinding.inflate(inflater, container, false)
 		val root = binding.root
 		profileImgIW = binding.profileImg
 		usernameTW = binding.usernameTextview
@@ -52,9 +52,11 @@ class ProfileFragment : Fragment() {
 		degustationsTW = binding.degustationTextview
 		localsTW = binding.localsTextview
 		binding.friendsListRv.adapter = UsersListAdapter(sharedViewModel)
-		binding.friendRequestsRv.adapter = FriendRequestListAdapter(sharedViewModel, viewLifecycleOwner,requireContext(),getString(
-			R.string.try_again_msg
-		))
+		binding.friendRequestsRv.adapter = FriendRequestListAdapter(
+			sharedViewModel, viewLifecycleOwner, requireContext(), getString(
+				R.string.try_again_msg
+			)
+		)
 		awardsTW = binding.awardsTextview
 		sharedViewModel.resetStatus()
 		sharedViewModel.resetUsersList()
@@ -63,27 +65,27 @@ class ProfileFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		binding?.apply {
+		binding.apply {
 			viewModel = sharedViewModel
-			profileEdit.setOnClickListener{
+			profileEdit.setOnClickListener {
 				sharedViewModel.saveCurrentUser()
 				findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
 			}
-			sharedViewModel.friends.observe(viewLifecycleOwner){
-				if(it.users.isNullOrEmpty()){
+			sharedViewModel.friends.observe(viewLifecycleOwner) {
+				if (it.users.isNullOrEmpty()) {
 					friendsListRv.visibility = View.GONE
 					friendsListEmpty.visibility = View.VISIBLE
-				}else{
-					friendsListRv.adapter?.notifyItemRangeChanged(0,it.users.size)
+				} else {
+					friendsListRv.adapter?.notifyItemRangeChanged(0, it.users.size)
 					friendsListRv.visibility = View.VISIBLE
 					friendsListEmpty.visibility = View.GONE
 				}
 			}
-			sharedViewModel.friendRequests.observe(viewLifecycleOwner){
-				if(it.users.isNullOrEmpty()){
+			sharedViewModel.friendRequests.observe(viewLifecycleOwner) {
+				if (it.users.isNullOrEmpty()) {
 					friendRequestsRv.visibility = View.GONE
 					friendRequestsEmpty.visibility = View.VISIBLE
-				}else{
+				} else {
 					friendRequestsRv.visibility = View.VISIBLE
 					friendRequestsEmpty.visibility = View.GONE
 				}
