@@ -150,14 +150,13 @@ class PasswordRecoveryFragment : Fragment() {
 				"${editTextFour.text.toString().trim()}"
 
 		if (code.length == 4 && code == sharedViewModel.code) {
-			Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
 			val inputManager =
 				requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 			inputManager.hideSoftInputFromWindow(frameLayoutRoot.windowToken, 0)
 			success = true
 		}
 		if (!success) {
-			Toast.makeText(requireContext(), "Wrong Code", Toast.LENGTH_SHORT).show()
+			Toast.makeText(requireContext(), getString(R.string.wrong_code_msg), Toast.LENGTH_SHORT).show()
 			reset()
 		}
 		return success

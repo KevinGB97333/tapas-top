@@ -72,4 +72,7 @@
     <string name="help_title">Ayuda</string>
     <string name="help_text">Toca en los botones de \"Ver...\" para entrar a las distintas secciones del menú o al icono de la lupa para abrir la barra de búsqueda</string>
     <string name="ok_text">Ok</string>
+    <string name="login_error_msg">Usuario y contraseña no coinciden</string>
+    <string name="successful_logout_msg">!Vuelve pronto!</string>
+    <string name="wrong_code_msg">Código Erróneo</string>
 </resources>

@@ -70,5 +70,8 @@
     <string name="friends_list_title">Friends List</string>
     <string name="help_title">Help</string>
     <string name="ok_text">Ok</string>
+    <string name="wrong_code_msg">Wrong code</string>
+    <string name="successful_logout_msg">See you soon!</string>
+    <string name="login_error_msg">Username and password doesn\'t match</string>
     <string name="help_text">Touch the \"View...\" buttons to enter the different sections of the menu or touch the search icon to open the search bar</string>
 </resources>

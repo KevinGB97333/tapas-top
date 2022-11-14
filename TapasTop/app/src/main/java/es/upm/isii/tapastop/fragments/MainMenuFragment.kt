@@ -58,7 +58,7 @@ class MainMenuFragment : Fragment() {
 			viewModel = sharedViewModel
 			logoutImg.setOnClickListener {
 				sharedViewModel.resetUser()
-				Toast.makeText(requireContext(), "Successful logout", Toast.LENGTH_SHORT).show()
+				Toast.makeText(requireContext(), getString(R.string.successful_logout_msg), Toast.LENGTH_SHORT).show()
 				findNavController().navigate(R.id.action_mainMenuFragment_to_initialFragment)
 			}
 			helpBtn.setOnClickListener {

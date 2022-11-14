@@ -87,7 +87,7 @@ class LoginTabFragment : Fragment() {
 						loadingLayout.visibility = View.GONE
 						Toast.makeText(
 							requireContext(),
-							"Error al hacer el login",
+							getString(R.string.login_error_msg),
 							Toast.LENGTH_SHORT
 						)
 							.show()
