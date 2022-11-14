@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/initialFragment"
-        android:name="es.upm.isii.tapastop.InitialFragment"
+        android:name="es.upm.isii.tapastop.fragments.InitialFragment"
         android:label="InitialFragment" >
         <action
             android:id="@+id/action_initialFragment_to_mainMenuFragment"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainMenuFragment"
-        android:name="es.upm.isii.tapastop.MainMenuFragment"
+        android:name="es.upm.isii.tapastop.fragments.MainMenuFragment"
         android:label="MainMenuFragment" >
         <action
             android:id="@+id/action_mainMenuFragment_to_profileFragment"
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="es.upm.isii.tapastop.ProfileFragment"
+        android:name="es.upm.isii.tapastop.fragments.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/ageValidationFragment"
-        android:name="es.upm.isii.tapastop.AgeValidationFragment"
+        android:name="es.upm.isii.tapastop.fragments.AgeValidationFragment"
         android:label="AgeValidationFragment" >
         <action
             android:id="@+id/action_ageValidationFragment_to_initialFragment"
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/postSignUpFragment"
-        android:name="es.upm.isii.tapastop.PostSignUpFragment"
+        android:name="es.upm.isii.tapastop.fragments.PostSignUpFragment"
         android:label="PostSignUpFragment" >
         <action
             android:id="@+id/action_postSignUpFragment_to_mainMenuFragment"
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/verifyMailFragment"
-        android:name="es.upm.isii.tapastop.VerifyMailFragment"
+        android:name="es.upm.isii.tapastop.fragments.VerifyMailFragment"
         android:label="VerifyMailFragment" >
         <action
             android:id="@+id/action_verifyMailFragment_to_postSignUpFragment"
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="es.upm.isii.tapastop.EditProfileFragment"
+        android:name="es.upm.isii.tapastop.fragments.EditProfileFragment"
         android:label="EditProfileFragment" >
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="es.upm.isii.tapastop.SearchFragment"
+        android:name="es.upm.isii.tapastop.fragments.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_userProfileFragment"
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/usernameForgotPasswordFragment"
-        android:name="es.upm.isii.tapastop.UsernameForgotPasswordFragment"
+        android:name="es.upm.isii.tapastop.fragments.UsernameForgotPasswordFragment"
         android:label="UsernameForgotPasswordFragment" >
         <action
             android:id="@+id/action_usernameForgotPasswordFragment_to_passwordRecoveryFragment"
@@ -123,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/passwordRecoveryFragment"
-        android:name="es.upm.isii.tapastop.PasswordRecoveryFragment"
+        android:name="es.upm.isii.tapastop.fragments.PasswordRecoveryFragment"
         android:label="PasswordRecoveryFragment" >
         <action
             android:id="@+id/action_passwordRecoveryFragment_to_newPasswordFragment"
@@ -134,7 +134,7 @@
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="es.upm.isii.tapastop.NewPasswordFragment"
+        android:name="es.upm.isii.tapastop.fragments.NewPasswordFragment"
         android:label="NewPasswordFragment" >
         <action
             android:id="@+id/action_newPasswordFragment_to_initialFragment"
@@ -145,6 +145,6 @@
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="es.upm.isii.tapastop.UserProfileFragment"
+        android:name="es.upm.isii.tapastop.fragments.UserProfileFragment"
         android:label="UserProfileFragment" />
 </navigation>

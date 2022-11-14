@@ -1,8 +1,7 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentPasswordRecoveryBinding
 import es.upm.isii.tapastop.model.UserViewModel
 

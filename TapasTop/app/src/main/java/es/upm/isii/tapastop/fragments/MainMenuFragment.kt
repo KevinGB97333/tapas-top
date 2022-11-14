@@ -1,8 +1,6 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentMainMenuBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
@@ -44,10 +43,12 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        val dialog = MaterialAlertDialogBuilder(ContextThemeWrapper(requireContext(),R.style.AlertDialogCustom))
+        val dialog = MaterialAlertDialogBuilder(ContextThemeWrapper(requireContext(),
+			R.style.AlertDialogCustom
+		))
         dialog.setTitle(getString(R.string.help_title))
             .setMessage(getString(R.string.help_text))
-            .setPositiveButton(getString(R.string.ok_text)){dialog , _ ->
+            .setPositiveButton(getString(R.string.ok_text)){ dialog, _ ->
                 dialog.cancel()
             }
         binding?.apply {

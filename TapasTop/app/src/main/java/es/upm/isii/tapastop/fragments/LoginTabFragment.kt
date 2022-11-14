@@ -1,7 +1,6 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,21 +9,16 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentLoginTabBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class LoginTabFragment : Fragment() {
 
@@ -65,7 +59,7 @@ class LoginTabFragment : Fragment() {
         usernameET = binding.loginUsernameText
         passwordET = binding.loginPasswordText
         //Animations
-        usernameAnimation = AnimationUtils.loadAnimation(activity,R.anim.start_username_field_anim)
+        usernameAnimation = AnimationUtils.loadAnimation(activity, R.anim.start_username_field_anim)
         passwordAnimation = AnimationUtils.loadAnimation(activity, R.anim.start_password_field_anim)
         loginAnimation = AnimationUtils.loadAnimation(activity, R.anim.start_button_anim)
 

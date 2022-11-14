@@ -1,26 +1,19 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.adapters.FriendRequestListAdapter
 import es.upm.isii.tapastop.adapters.UsersListAdapter
 import es.upm.isii.tapastop.databinding.FragmentProfileBinding
 import es.upm.isii.tapastop.model.UserViewModel
-import es.upm.isii.tapastop.model.userGetApiStatus
 
 class ProfileFragment : Fragment() {
 	private var _binding : FragmentProfileBinding? = null
@@ -59,7 +52,9 @@ class ProfileFragment : Fragment() {
 		degustationsTW = binding.degustationTextview
 		localsTW = binding.localsTextview
 		binding.friendsListRv.adapter = UsersListAdapter(sharedViewModel)
-		binding.friendRequestsRv.adapter = FriendRequestListAdapter(sharedViewModel, viewLifecycleOwner,requireContext(),getString(R.string.try_again_msg))
+		binding.friendRequestsRv.adapter = FriendRequestListAdapter(sharedViewModel, viewLifecycleOwner,requireContext(),getString(
+			R.string.try_again_msg
+		))
 		awardsTW = binding.awardsTextview
 		sharedViewModel.resetStatus()
 		sharedViewModel.resetUsersList()

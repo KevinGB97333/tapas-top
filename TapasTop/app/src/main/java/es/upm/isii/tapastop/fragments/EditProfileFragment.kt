@@ -1,4 +1,4 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.Manifest
 import android.app.Activity
@@ -6,14 +6,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.drawToBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -22,12 +20,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.mikhaellopez.circularimageview.CircularImageView
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentEditProfileBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus
 import es.upm.isii.tapastop.model.usernameAvailability
-import es.upm.isii.tapastop.network.User
-import org.w3c.dom.Text
 
 class EditProfileFragment : Fragment() {
 

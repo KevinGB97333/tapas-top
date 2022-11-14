@@ -1,8 +1,7 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +11,13 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentVerifyMailBinding
 import es.upm.isii.tapastop.model.UserViewModel
-import java.security.Key
 
 class VerifyMailFragment : Fragment() {
 	private var _binding: FragmentVerifyMailBinding? = null

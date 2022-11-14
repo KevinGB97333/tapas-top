@@ -1,4 +1,4 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.mikhaellopez.circularimageview.CircularImageView
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentPostSignupBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.model.restApiStatus

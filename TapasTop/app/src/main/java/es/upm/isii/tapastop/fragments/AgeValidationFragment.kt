@@ -1,9 +1,8 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.Layout.Directions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.DatePicker
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentAgeValidationBinding
 import java.util.Calendar
 

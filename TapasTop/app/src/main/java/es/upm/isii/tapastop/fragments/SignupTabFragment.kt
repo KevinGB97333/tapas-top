@@ -1,4 +1,4 @@
-package es.upm.isii.tapastop
+package es.upm.isii.tapastop.fragments
 
 import android.os.Bundle
 import android.util.Patterns
@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentSignupTabBinding
 import es.upm.isii.tapastop.model.UserViewModel
 
