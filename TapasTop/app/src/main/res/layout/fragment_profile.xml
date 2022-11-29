@@ -157,6 +157,7 @@
                         android:fontFamily="@font/brandon_grotesque_black"
                         android:textColor="@color/grey_900"
                         android:textSize="26sp"
+                        android:textAlignment="center"
                         android:text="@string/name_title" />
 
                     <TextView
@@ -210,6 +211,7 @@
                         android:fontFamily="@font/brandon_grotesque_bold_italic"
                         android:textColor="@color/grey_900"
                         android:textSize="30sp"
+                        android:textAlignment="center"
                         android:text="@{viewModel.currentUser.surname.toString()}"
                         tools:text="Guarnizo" />
                 </RelativeLayout>
@@ -251,6 +253,7 @@
                         android:fontFamily="@font/brandon_grotesque_bold_italic"
                         android:textColor="@color/grey_900"
                         android:textSize="30sp"
+                        android:textAlignment="center"
                         android:text="@{viewModel.currentUser.email.toString()}"
                         tools:text="kevin@gmail.com" />
                 </RelativeLayout>
@@ -335,6 +338,7 @@
                         android:fontFamily="@font/brandon_grotesque_bold_italic"
                         android:textColor="@color/grey_900"
                         android:textSize="30sp"
+                        android:textAlignment="center"
                         android:text="@{viewModel.currentUser.country.toString()}"
                         tools:text="Spain" />
                 </RelativeLayout>

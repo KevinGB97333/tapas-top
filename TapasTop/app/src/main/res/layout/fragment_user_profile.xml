@@ -99,6 +99,7 @@
                             android:layout_centerHorizontal="true"
                             android:fontFamily="@font/brandon_grotesque_bold_italic"
                             android:text="@{viewModel.tempUser.name.toString()}"
+                            android:textAlignment="center"
                             android:textColor="@color/grey_900"
                             android:textSize="30sp"
                             tools:text="Kevin guapo" />
@@ -145,6 +146,7 @@
                             android:fontFamily="@font/brandon_grotesque_bold_italic"
                             android:text="@{viewModel.tempUser.surname.toString()}"
                             android:textColor="@color/grey_900"
+                            android:textAlignment="center"
                             android:textSize="30sp"
                             tools:text="Guarnizo" />
                     </RelativeLayout>
@@ -190,6 +192,7 @@
                             android:text="@{viewModel.tempUser.email.toString()}"
                             android:textColor="@color/grey_900"
                             android:textSize="30sp"
+                            android:textAlignment="center"
                             tools:text="kevin@gmail.com" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -278,6 +281,7 @@
                             android:text="@{viewModel.tempUser.country.toString()}"
                             android:textColor="@color/grey_900"
                             android:textSize="30sp"
+                            android:textAlignment="center"
                             tools:text="Spain" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -322,6 +326,7 @@
                             android:textColor="@color/grey_900"
                             android:textSize="30sp"
                             android:text="@{viewModel.tempUser.location.toString()}"
+                            android:textAlignment="center"
                             tools:text="Madrid" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
