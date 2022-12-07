@@ -3,7 +3,9 @@ package es.upm.isii.tapastop.adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.ETC1.decodeImage
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +23,13 @@ import es.upm.isii.tapastop.model.restApiStatus
 import es.upm.isii.tapastop.network.UserSummary
 
 class FriendRequestListAdapter(
+	private val recyclerView: RecyclerView,
 	private val sharedViewModel: UserViewModel,
 	private val lifecycleOwner: LifecycleOwner,
 	private val context: Context,
 	private val errorMsg: String
 ) :
 	ListAdapter<UserSummary, FriendRequestListAdapter.FriendRequestViewHolder>(DiffCallback) {
-
 	/**
 	 * Allows the RecyclerView to determine which items have changed when the [List] of
 	 * [UserSummary] has been updated.
@@ -50,10 +52,7 @@ class FriendRequestListAdapter(
 			binding.userProfileImg.setImageBitmap(decodeImage(user.profile_img))
 			binding.executePendingBindings()
 		}
-
 	}
-
-
 	/**
 	 * Create new [RecyclerView] item views (invoked by the layout manager)
 	 */
@@ -76,26 +75,39 @@ class FriendRequestListAdapter(
 		val user = getItem(position)
 		holder.bind(user)
 		val loadingLayout = holder.itemView.findViewById<RelativeLayout>(R.id.loading_layout)
+
+		/**
+		 * Updates [recyclerView]
+		 */
 		sharedViewModel.status.observe(lifecycleOwner) {
 			when (it) {
-				restApiStatus.LOADING -> loadingLayout.visibility = View.VISIBLE
 				restApiStatus.ERROR -> {
 					Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
 					loadingLayout.visibility = View.GONE
 				}
-				else -> {
+				restApiStatus.DONE -> {
 					loadingLayout.visibility = View.GONE
+					if(!recyclerView.isComputingLayout){
+						notifyItemRemoved(position)
+						notifyItemRangeChanged(position,currentList.size)
+					}
 				}
+				else -> {}
 			}
 		}
+		/**
+		 * Accepts friends request
+		 */
 		holder.itemView.findViewById<Button>(R.id.accept_request).setOnClickListener {
-			sharedViewModel.acceptRequest(user.username, position)
+			sharedViewModel.acceptRequest(user.username, holder.adapterPosition)
 		}
+		/**
+		 * Declines  friend request
+		 */
 		holder.itemView.findViewById<Button>(R.id.decline_request).setOnClickListener {
-			sharedViewModel.declineRequest(user.username, position)
+			sharedViewModel.declineRequest(user.username,holder.adapterPosition)
 		}
 	}
-
 }
 
 private fun decodeImage(imageB64: String?): Bitmap {

@@ -9,19 +9,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL = "https://tapas-top-rest-api.herokuapp.com/"
+private const val BASE_URL = "https://kevin97333.pythonanywhere.com/"
 
 var mHttpLoggingInterceptor = HttpLoggingInterceptor()
 	.setLevel(HttpLoggingInterceptor.Level.BODY)
 
 var mOkHttpClient = OkHttpClient
 	.Builder()
-	.addInterceptor(mHttpLoggingInterceptor)
 	.build()
+
 
 private val moshi = Moshi.Builder()
 	.add(KotlinJsonAdapterFactory())
 	.build()
+
 
 private val retrofit = Retrofit.Builder()
 	.addConverterFactory(MoshiConverterFactory.create(moshi))

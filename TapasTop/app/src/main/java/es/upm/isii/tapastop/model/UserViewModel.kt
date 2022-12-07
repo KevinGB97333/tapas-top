@@ -3,6 +3,8 @@ package es.upm.isii.tapastop.model
 import android.accounts.NetworkErrorException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.ETC1.decodeImage
+import android.opengl.ETC1.encodeImage
 import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -107,6 +109,10 @@ class UserViewModel : ViewModel() {
 		_awards.value = 0
 	}
 
+	/**
+	 * Send friend request to server from the current user to the selected user
+	 *
+	 */
 	fun sendFriendRequest() {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
@@ -130,6 +136,11 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 *Retrieve a user from the server if exist with all of his information
+	 *
+	 * @param username of the user desired
+	 */
 	fun getSpecificUser(username: String) {
 		viewModelScope.launch {
 			_userGetStatus.value = userGetApiStatus.LOADING
@@ -146,18 +157,24 @@ class UserViewModel : ViewModel() {
 					}
 				}
 			} catch (e: Exception) {
+				e.printStackTrace()
 				_userGetStatus.value = userGetApiStatus.NOTHING
 			}
 		}
 	}
 
+	/**
+	 * Retrieve all the users from the server that matches the string pattern specified
+	 *
+	 * @param searchString pattern of the users we want to retrieve
+	 */
 	fun getUsers(searchString: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
 			try {
 				val response = TapasTopApi.retrofitService.getUsersLike(
 					searchString,
-					_currentUser.value!!.username.toString()
+					_currentUser.value!!.username
 				)
 				when (response.code()) {
 					200 -> {
@@ -176,6 +193,11 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Send an update request to change the password of the user
+	 *
+	 * @param newPassword
+	 */
 	fun updatePassword(newPassword: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
@@ -192,6 +214,10 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Send a request to the server with the recovery code and the username
+	 * @param username of the user who want to recover password
+	 */
 	fun sendRecoveryEmail(username: String) {
 		generateCode()
 		usernameRecovery = username
@@ -204,6 +230,9 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Send an update request to the server with the username used before entering edit screen and the new values
+	 */
 	fun updateUser() {
 		_status.value = restApiStatus.LOADING
 		try {
@@ -228,6 +257,12 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Send request to server to check username availability
+	 *
+	 * @param username to check
+	 *
+	 */
 	fun checkUsername(username: String) {
 		_checkUsernameStatus.value = usernameAvailability.LOADING
 		try {
@@ -308,6 +343,10 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Checks if the user selected its already on the local copy of friendList
+	 *
+	 */
 	fun userInFriends(): Boolean {
 		var user: UserSummary? = null
 		user = _friends.value?.users?.find {
@@ -319,6 +358,9 @@ class UserViewModel : ViewModel() {
 		return user.username != ""
 	}
 
+	/**
+	 * Retrieve friend requests of the current user from the server
+	 */
 	fun getFriendRequestsUpdate() {
 		viewModelScope.launch {
 			try {
@@ -333,6 +375,10 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Retrieve friends of the current user from the server
+	 *
+	 */
 	fun getFriendsUpdate() {
 		viewModelScope.launch {
 			try {
@@ -347,6 +393,14 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Sends one request to the server in order to accept the friend request
+	 *  and if its work correct add it to the local copy of friendsList
+	 *
+	 * @param username wanted to add into friends
+	 * @param pos position in friendRequest list
+	 *
+	 */
 	fun acceptRequest(username: String, pos: Int) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
@@ -357,10 +411,15 @@ class UserViewModel : ViewModel() {
 				)
 				when (response.code()) {
 					200 -> {
-						val user = _friendRequests.value!!.users.removeAt(pos)
-						_friendRequests.value = response.body()
-						_friends.value!!.users.add(_friends.value!!.users.size, user)
-						_status.value = restApiStatus.NOTHING
+						var user : UserSummary? = null
+						_friendRequests.value!!.users.forEach{
+							if(it.username == username){
+								user = it
+							}
+						}
+						_friendRequests.value!!.users.removeIf{ it.username == username}
+						_friends.value!!.users.add(_friends.value!!.users.size, user!!)
+						_status.value = restApiStatus.DONE
 					}
 					400 -> {
 						_status.value = restApiStatus.ERROR
@@ -372,6 +431,14 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Sends one request to the server in order to decline the friend request
+	 *  and if its work correct delete it to the local copy of friendRequests
+	 *
+	 * @param username wanted to delete from friendRequests list
+	 * @param pos position in friendRequest list
+	 *
+	 */
 	fun declineRequest(username: String, pos: Int) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
@@ -382,15 +449,15 @@ class UserViewModel : ViewModel() {
 				)
 				when (response.code()) {
 					200 -> {
-						_friendRequests.value!!.users.removeAt(pos)
-						_friendRequests.value = response.body()
-						_status.value = restApiStatus.NOTHING
+						_friendRequests.value!!.users.removeIf{ it.username == username}
+						_status.value = restApiStatus.DONE
 					}
 					400 -> {
 						_status.value = restApiStatus.ERROR
 					}
 				}
 			} catch (e: Exception) {
+				e.printStackTrace()
 				_status.value = restApiStatus.ERROR
 			}
 		}
@@ -414,6 +481,10 @@ class UserViewModel : ViewModel() {
 		}
 	}
 
+	/**
+	 * Send request to the server to create a server with the sent values
+	 *
+	 */
 	fun createUser() {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
@@ -484,6 +555,9 @@ class UserViewModel : ViewModel() {
 		_currentUser.value?.description = description
 	}
 
+	/**
+	 * Generate 4-digits code
+	 */
 	private fun generateCode() {
 		code = "${(0..9).random()}" +
 				"${(0..9).random()}" +

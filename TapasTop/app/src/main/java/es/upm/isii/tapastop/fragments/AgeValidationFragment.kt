@@ -34,6 +34,10 @@ class AgeValidationFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		val calendar: Calendar = Calendar.getInstance()
 		datePicker = binding.agePicker
+
+		/**
+		 * Ask for image storage permissions
+		 */
 		if (ActivityCompat.checkSelfPermission(
 				requireActivity(),
 				Manifest.permission.READ_EXTERNAL_STORAGE

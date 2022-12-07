@@ -10,6 +10,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import es.upm.isii.tapastop.network.Users
 
+/**
+ * Bind [Bitmap] to [imageView]
+ */
 @BindingAdapter(value = ["imageBitmap", "placeholder"], requireAll = false)
 fun bindImage(imageView: ImageView, imgBitmap: Bitmap?, placeholder: Drawable) {
 	if (imgBitmap == null) {
@@ -19,6 +22,10 @@ fun bindImage(imageView: ImageView, imgBitmap: Bitmap?, placeholder: Drawable) {
 	}
 }
 
+/**
+ * Number of elements in [data]
+ * Used for friends request list and friends list
+ */
 @BindingAdapter("numberOf")
 fun bindSize(textView: TextView, data: Users?) {
 	if (data?.users.isNullOrEmpty()) {
@@ -29,6 +36,9 @@ fun bindSize(textView: TextView, data: Users?) {
 
 }
 
+/**
+ * Used to make [Button] invisible
+ */
 @BindingAdapter("requested")
 fun bindVisibility(button: Button, already: Boolean) {
 	if (already) {

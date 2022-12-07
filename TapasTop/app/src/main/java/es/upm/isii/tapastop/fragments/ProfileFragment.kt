@@ -1,6 +1,7 @@
 package es.upm.isii.tapastop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,10 @@ import de.hdodenhof.circleimageview.CircleImageView
 import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.adapters.FriendRequestListAdapter
 import es.upm.isii.tapastop.adapters.UsersListAdapter
+import es.upm.isii.tapastop.adapters.bindImage
 import es.upm.isii.tapastop.databinding.FragmentProfileBinding
 import es.upm.isii.tapastop.model.UserViewModel
+import es.upm.isii.tapastop.model.userGetApiStatus
 
 class ProfileFragment : Fragment() {
 	private var _binding: FragmentProfileBinding? = null
@@ -53,7 +56,7 @@ class ProfileFragment : Fragment() {
 		localsTW = binding.localsTextview
 		binding.friendsListRv.adapter = UsersListAdapter(sharedViewModel)
 		binding.friendRequestsRv.adapter = FriendRequestListAdapter(
-			sharedViewModel, viewLifecycleOwner, requireContext(), getString(
+			binding.friendRequestsRv,sharedViewModel, viewLifecycleOwner, requireContext(), getString(
 				R.string.try_again_msg
 			)
 		)
@@ -65,22 +68,47 @@ class ProfileFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+		val nextFragment = UserProfileFragment()
 		binding.apply {
 			viewModel = sharedViewModel
+
+			/**
+			 * Save copy of the current user and navigate to edit profile fragment
+			 */
 			profileEdit.setOnClickListener {
 				sharedViewModel.saveCurrentUser()
 				findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
 			}
+
+			/**
+			 * Launch new fragment to view friend profile
+			 */
+			sharedViewModel.userGetStatus.observe(viewLifecycleOwner) {
+				when (it) {
+					userGetApiStatus.DONE -> {
+						requireActivity().supportFragmentManager.beginTransaction()
+							.replace(R.id.nav_host_fragment, nextFragment, "thisfragment2")
+							.addToBackStack(null)
+							.commit()
+					}
+					else -> {}
+				}
+			}
+			/**
+			 * Observe friend list if it's empty or not
+			 */
 			sharedViewModel.friends.observe(viewLifecycleOwner) {
 				if (it.users.isNullOrEmpty()) {
 					friendsListRv.visibility = View.GONE
 					friendsListEmpty.visibility = View.VISIBLE
 				} else {
-					friendsListRv.adapter?.notifyItemRangeChanged(0, it.users.size)
 					friendsListRv.visibility = View.VISIBLE
 					friendsListEmpty.visibility = View.GONE
 				}
 			}
+			/**
+			 * Observe requests list if it's empty or not
+			 */
 			sharedViewModel.friendRequests.observe(viewLifecycleOwner) {
 				if (it.users.isNullOrEmpty()) {
 					friendRequestsRv.visibility = View.GONE
