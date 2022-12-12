@@ -46,6 +46,11 @@
             app:destination="@id/searchFragment"
             app:enterAnim="@anim/enter_anim"
             app:popEnterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_addTapaFragment"
+            app:destination="@id/addTapaFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:popUpTo="@id/mainMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -147,4 +152,8 @@
         android:id="@+id/userProfileFragment"
         android:name="es.upm.isii.tapastop.fragments.UserProfileFragment"
         android:label="UserProfileFragment" />
+    <fragment
+        android:id="@+id/addTapaFragment"
+        android:name="es.upm.isii.tapastop.fragments.AddTapaFragment"
+        android:label="AddTapaFragment" />
 </navigation>

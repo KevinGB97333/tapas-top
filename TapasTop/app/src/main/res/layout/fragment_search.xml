@@ -50,6 +50,16 @@
                     android:layout_height="30dp"
                     android:indeterminateTint="@color/grey_900"/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/users_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/users_title"
+                android:textSize="30sp"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_900"
+                android:layout_gravity="center_horizontal"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/users_list"
                 android:layout_width="match_parent"
@@ -59,7 +69,47 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:listData="@{viewModel.users}"
                 tools:itemCount="4"
-                tools:listitem="@layout/grid_view_item"/>
+                tools:listitem="@layout/user_view_item"/>
+            <TextView
+                android:id="@+id/users_list_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nothing_to_show_title"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_400"
+                android:textSize="26sp"
+                tools:visibility="gone"/>
+            <TextView
+                android:id="@+id/tapas_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/tapas_title"
+                android:textSize="30sp"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_900"
+                android:layout_gravity="center_horizontal"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tapas_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="6dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:listData="@{viewModel.users}"
+                tools:itemCount="4"
+                tools:listitem="@layout/tapa_view_item"/>
+            <TextView
+                android:id="@+id/tapas_list_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nothing_to_show_title"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:textColor="@color/grey_400"
+                android:textSize="26sp"
+                tools:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

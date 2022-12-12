@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import es.upm.isii.tapastop.databinding.GridViewItemBinding
+import es.upm.isii.tapastop.databinding.UserViewItemBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.network.UserSummary
 
@@ -17,7 +17,7 @@ class UsersListAdapter(private var sharedViewModel: UserViewModel) :
 	ListAdapter<UserSummary, UsersListAdapter.UsersViewHolder>(DiffCallback) {
 
 	class UsersViewHolder(
-		private var binding: GridViewItemBinding
+		private var binding: UserViewItemBinding
 	) : RecyclerView.ViewHolder(binding.root) {
 		fun bind(user: UserSummary) {
 			binding.userUsername.text = user.username
@@ -48,7 +48,7 @@ class UsersListAdapter(private var sharedViewModel: UserViewModel) :
 		viewType: Int
 	): UsersListAdapter.UsersViewHolder {
 		return UsersListAdapter.UsersViewHolder(
-			GridViewItemBinding.inflate(LayoutInflater.from(parent.context))
+			UserViewItemBinding.inflate(LayoutInflater.from(parent.context))
 		)
 	}
 

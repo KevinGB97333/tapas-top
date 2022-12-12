@@ -15,7 +15,18 @@
         <item name="startIconTint">?attr/colorSecondaryVariant</item>
         <item name="endIconTint">?attr/colorSecondaryVariant</item>
     </style>
-
+    <style name="DropDownCustom" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="shapeAppearanceOverlay">
+            @style/shapeAppearanceOverlay.TapasTop.TextInputLayout.Rounded
+        </item>
+        <item name="boxCornerRadiusTopStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="hintTextColor">?attr/colorSecondaryVariant</item>
+        <item name="boxStrokeColor">?attr/colorSecondaryVariant</item>
+        <item name="hintTextAppearance">@style/TextAppearance.AppCompat.Small</item>
+    </style>
     <style name="SearchBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">
             @style/shapeAppearanceOverlay.TapasTop.TextInputLayout.Rounded
@@ -64,5 +75,10 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
+    <style name="RatingBarCustom" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressTint">@color/amber_700</item>
+        <item name="android:progressBackgroundTint">@color/grey_400</item>
+        <item name="android:secondaryProgressTint">@android:color/transparent</item>
+    </style>
 
 </resources>

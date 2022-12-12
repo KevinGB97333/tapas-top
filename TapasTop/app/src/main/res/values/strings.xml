@@ -74,4 +74,26 @@
     <string name="successful_logout_msg">See you soon!</string>
     <string name="login_error_msg">Username and password doesn\'t match</string>
     <string name="help_text">Touch the \"View...\" buttons to enter the different sections of the menu or touch the search icon to open the search bar</string>
+    <string name="your_rating_text">Your rate : %1$.1f</string>
+    <string name="rating_text">Average Rating : %1$.1f</string>
+    <string name="type_of_food">Type of food</string>
+    <string name="region">Region</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="taste">Taste</string>
+    <string name="add_tapa_title">Add new Tapa</string>
+    <string name="users_title">Users</string>
+    <string name="tapas_title" translatable="false">Tapas</string>
+    <string-array name="types_of_food">
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Appetizer</item>
+        <item>Vegetable</item>
+        <item>Pasta</item>
+        <item>Rice</item>
+    </string-array>
+    <string-array name="tastes">
+        <item>Sweet</item>
+        <item>Bitter</item>
+        <item>Salty</item>
+    </string-array>
 </resources>

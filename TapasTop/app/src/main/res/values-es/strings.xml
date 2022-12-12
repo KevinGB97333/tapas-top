@@ -75,4 +75,25 @@
     <string name="login_error_msg">Usuario y contraseña no coinciden</string>
     <string name="successful_logout_msg">!Vuelve pronto!</string>
     <string name="wrong_code_msg">Código Erróneo</string>
+    <string name="rating_text">Valoración Media: %1$.1f</string>
+    <string name="your_rating_text">Tú valoración : %1$.1f</string>
+    <string name="type_of_food">Tipo de comida</string>
+    <string name="region">Región</string>
+    <string name="restaurant">Restaurante</string>
+    <string name="taste">Sabor</string>
+    <string name="users_title">Usuarios</string>¡
+    <string name="add_tapa_title">Añade una nueva tapa</string>
+    <string-array name="types_of_food">
+        <item>Carne</item>
+        <item>Pescado</item>
+        <item>Entrante</item>
+        <item>Verdura</item>
+        <item>Pasta</item>
+        <item>Arroz</item>
+    </string-array>
+    <string-array name="tastes">
+        <item>Dulce</item>
+        <item>Amargado</item>
+        <item>Salado</item>
+    </string-array>
 </resources>
