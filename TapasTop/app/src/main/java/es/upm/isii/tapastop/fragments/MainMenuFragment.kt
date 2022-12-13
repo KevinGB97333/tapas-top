@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.upm.isii.tapastop.R
 import es.upm.isii.tapastop.databinding.FragmentMainMenuBinding
+import es.upm.isii.tapastop.model.TapaViewModel
 import es.upm.isii.tapastop.model.UserViewModel
 
 
@@ -24,6 +25,7 @@ class MainMenuFragment : Fragment() {
 
 	// ViewModel object instance corresponding to the UserViewModel.kt class
 	private val sharedViewModel: UserViewModel by activityViewModels()
+	private val tapaSharedViewModel : TapaViewModel by activityViewModels()
 	private lateinit var viewProfileBtn: Button
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -33,10 +35,10 @@ class MainMenuFragment : Fragment() {
 		_binding = FragmentMainMenuBinding.inflate(inflater, container, false)
 		val root = binding.root
 		viewProfileBtn = binding.viewProfileBtn
-
 		sharedViewModel.resetStatus()
 		sharedViewModel.getFriendRequestsUpdate()
 		sharedViewModel.getFriendsUpdate()
+		tapaSharedViewModel.getRestaurants()
 		return root
 	}
 

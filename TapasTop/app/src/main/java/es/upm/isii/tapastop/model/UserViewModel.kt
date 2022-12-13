@@ -72,7 +72,9 @@ class UserViewModel : ViewModel() {
 	private val _tempUserImg = MutableLiveData<Bitmap>()
 	val tempUserImg: LiveData<Bitmap> = _tempUserImg
 
+	//User friend requested local copy
 	var requested: MutableList<String> = mutableListOf()
+
 	var code: String = ""
 	var usernameRecovery: String = ""
 
@@ -137,7 +139,7 @@ class UserViewModel : ViewModel() {
 	}
 
 	/**
-	 *Retrieve a user from the server if exist with all of his information
+	 * Retrieve a user from the server if exist with all of his information
 	 *
 	 * @param username of the user desired
 	 */
@@ -482,7 +484,7 @@ class UserViewModel : ViewModel() {
 	}
 
 	/**
-	 * Send request to the server to create a server with the sent values
+	 * Send request to the server to create a user with the sent values
 	 *
 	 */
 	fun createUser() {

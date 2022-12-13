@@ -47,7 +47,7 @@ interface TapasTopApiService {
 		@Query("password") password: String
 	): Response<UserResponse>
 
-	@GET("/userExists")
+	@GET("userExists")
 	suspend fun checkUsernameAvailability(@Query("uName") username: String): Response<MessageResponse>
 
 	@GET("users/pendingFriends/{uName}")
@@ -55,6 +55,15 @@ interface TapasTopApiService {
 
 	@GET("users/getFriends/{uName}")
 	suspend fun getFriends(@Path("uName") username: String): Response<Users>
+
+	@GET("tastings/")
+	suspend fun getTapaLike(@Query("search") searchString : String) : Response<Tapas>
+
+	@GET("tastings/{id}")
+	suspend fun  getTapa(@Path("id") tapaId : String) : Response<TapaResponse>
+
+	@GET("restaurants")
+	suspend fun getRestaurants() : Response<Restaurants>
 
 	//POST
 	@POST("users")
@@ -84,6 +93,12 @@ interface TapasTopApiService {
 		@Query("uNameReq") user: String
 	): Response<Users>
 
+	@POST("tasting")
+	suspend fun createTapa(
+		@Query("val") rate: Float,
+		@Body tapa: TapaResponse
+	): Response<MessageResponse>
+
 	//PUT
 	@PUT("users/newPassword")
 	suspend fun changePassword(
@@ -95,6 +110,14 @@ interface TapasTopApiService {
 	suspend fun updateUser(
 		@Path("uName") username: String,
 		@Body user: UserResponse
+	): Response<MessageResponse>
+
+	//TO-DO
+	@PUT("tasting")
+	suspend fun changeTapaRate(
+		@Query("val") newRate: Float,
+		@Query("username") username: String,
+		@Query("id") tapaId: String
 	): Response<MessageResponse>
 
 	//DELETE
