@@ -67,7 +67,7 @@ class TapaViewModel : ViewModel() {
 		}
 	}
 	/**
-	 * Retrieve all the tapas from the server that matches the string pattern specified
+	 * Retrieve all the ta	pas from the server that matches the string pattern specified
 	 *
 	 * @param searchString pattern of the tapas we want to retrieve
 	 */
