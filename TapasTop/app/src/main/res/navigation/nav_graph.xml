@@ -155,5 +155,11 @@
     <fragment
         android:id="@+id/addTapaFragment"
         android:name="es.upm.isii.tapastop.fragments.AddTapaFragment"
-        android:label="AddTapaFragment" />
+        android:label="AddTapaFragment" >
+        <action
+            android:id="@+id/action_addTapaFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment"
+            app:popUpTo="@id/mainMenuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

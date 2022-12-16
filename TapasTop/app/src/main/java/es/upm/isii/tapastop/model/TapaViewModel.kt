@@ -2,6 +2,7 @@ package es.upm.isii.tapastop.model
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.ETC1.decodeImage
 import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.*
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.log
 
 
 class TapaViewModel : ViewModel() {
@@ -24,34 +26,38 @@ class TapaViewModel : ViewModel() {
 	private val _status = MutableLiveData<restApiStatus>()
 	val status: LiveData<restApiStatus> = _status
 
-	//User rate of the current tapa
-	private val _userRate = MutableLiveData<Float>(0.0F)
-	val userRate: LiveData<Float> = _userRate
+	private val _tapaGetStatus = MutableLiveData<userGetApiStatus>()
+	val tapaGetStatus : LiveData<userGetApiStatus> = _tapaGetStatus
 
 	private val _tapas = MutableLiveData<Tapas>()
-	val tapas : LiveData<Tapas> = _tapas
+	val tapas: LiveData<Tapas> = _tapas
 
-	var restaurants : List<Restaurant> = listOf()
-
+	var restaurants: List<Restaurant> = listOf()
 	init {
 		resetTapa()
 	}
-
-	fun resetTapa() {
-		_currentTapa.value = Tapa("", "", "", "", "", "", "", "", "", "","",0.0F)
-		_userRate.value = 0.0F
-		_tapas.value = Tapas(mutableListOf())
+	fun resetStatus(){
 		_status.value = restApiStatus.NOTHING
+		_tapaGetStatus.value = userGetApiStatus.NOTHING
+	}
+	fun resetTapas(){
+		_currentTapa.value = Tapa(0,"", "", "", "", "", "", "", "", "", "",  0.0F, 0.0F)
+		_tapas.value = Tapas(mutableListOf())
+	}
+	fun resetTapa() {
+		_currentTapa.value = Tapa(0,"", "", "", "", "", "", "", "", "", "",  0.0F, 0.0F)
+		_tapas.value = Tapas(mutableListOf())
+		resetStatus()
 		restaurants = listOf()
 
 	}
 
-	fun getRestaurants(){
+	fun getRestaurants() {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
+			try {
 				val response = TapasTopApi.retrofitService.getRestaurants()
-				when(response.code()){
+				when (response.code()) {
 					200 -> {
 						restaurants = response.body()!!.restaurants
 						_status.value = restApiStatus.DONE
@@ -60,81 +66,91 @@ class TapaViewModel : ViewModel() {
 						_status.value = restApiStatus.ERROR
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				e.printStackTrace()
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
+
 	/**
 	 * Retrieve all the ta	pas from the server that matches the string pattern specified
 	 *
 	 * @param searchString pattern of the tapas we want to retrieve
 	 */
-	fun getTapas(searchString : String){
+	fun getTapas(searchString: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
+			try {
 				val response = TapasTopApi.retrofitService.getTapaLike(searchString)
-				when(response.code()){
+				when (response.code()) {
 					200 -> {
 						_tapas.value = response.body()
 						_status.value = restApiStatus.DONE
 					}
-					else ->{
+					else -> {
 						_status.value = restApiStatus.ERROR
 						_tapas.value = Tapas(mutableListOf())
 					}
 				}
-			}catch (e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 				_tapas.value = Tapas(mutableListOf())
 			}
 		}
 	}
-	fun updateRate(username : String){
+
+	fun updateRate(username: String) {
 		viewModelScope.launch {
 			_status.value = restApiStatus.LOADING
-			try{
-				val response = _userRate!!.value?.let {
-					TapasTopApi.retrofitService.changeTapaRate(
-						it,username,_currentTapa.value!!.id)
-				}
-				when(response!!.code()){
+			try {
+				val response = TapasTopApi.retrofitService.changeTapaRate(
+					_currentTapa.value!!.personalRate,
+					username,
+					_currentTapa!!.value!!.id
+				)
+				when (response!!.code()) {
 					200 -> {
-						_status.value = restApiStatus.DONE
-					}
-					else -> {_status.value = restApiStatus.ERROR}
-				}
-			}catch (e : Exception){
-				_status.value = restApiStatus.ERROR
-			}
-		}
-	}
-	/**
-	 * Retrieve one tapa from the server if exist with all of it information
-	 *
-	 */
-	fun getSpecificTapa(id : String){
-		viewModelScope.launch {
-			_status.value = restApiStatus.LOADING
-			try{
-				val response = TapasTopApi.retrofitService.getTapa(id)
-				when(response.code()){
-					200 -> {
-						_currentTapa.value = response.body()!!.tapa
 						_status.value = restApiStatus.DONE
 					}
 					else -> {
 						_status.value = restApiStatus.ERROR
 					}
 				}
-
-			}catch(e : Exception){
+			} catch (e: Exception) {
 				_status.value = restApiStatus.ERROR
 			}
 		}
 	}
+
+	/**
+	 * Retrieve one tapa from the server if exist with all of it information
+	 *
+	 */
+	fun getSpecificTapa(id: Int, username : String) {
+		viewModelScope.launch {
+			_tapaGetStatus.value = userGetApiStatus.LOADING
+			try {
+				val response = TapasTopApi.retrofitService.getTapa(id,username)
+				when (response.code()) {
+					200 -> {
+						_currentTapa.value = response.body()!!.tapa
+						_tapaImg.value = decodeImage(_currentTapa.value?.photo)
+						Log.d("Current Tapa","${_currentTapa.value}")
+						_tapaGetStatus.value = userGetApiStatus.DONE
+					}
+					else -> {
+						_tapaGetStatus.value = userGetApiStatus.NOTHING
+					}
+				}
+
+			} catch (e: Exception) {
+				e.printStackTrace()
+				_tapaGetStatus.value = userGetApiStatus.NOTHING
+			}
+		}
+	}
+
 	/**
 	 * Send request to the server to create a tapa with the sent values
 	 *
@@ -146,18 +162,19 @@ class TapaViewModel : ViewModel() {
 				_currentTapa.value?.photo = encodeImage(_tapaImg.value)
 				val newTapa: TapaResponse = _currentTapa.value?.let { TapaResponse(it) }!!
 				val response = newTapa.let {
-					_userRate.value?.let { it1 ->
-						TapasTopApi.retrofitService.createTapa(
-							it1, it
-						)
-					}
+					TapasTopApi.retrofitService.createTapa(
+						it.tapa.personalRate, it
+					)
 				}
-				when(response!!.code()){
-					200 -> _status.value = restApiStatus.DONE
+				when (response!!.code()) {
+					200 -> {
+						_status.value = restApiStatus.DONE
+					}
 					else -> _status.value = restApiStatus.ERROR
 
 				}
 			} catch (e: Exception) {
+				e.printStackTrace()
 				_status.value = restApiStatus.ERROR
 			}
 		}
@@ -196,17 +213,19 @@ class TapaViewModel : ViewModel() {
 	}
 
 	fun setDate() {
-		val formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD")
+		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 		val currentDate = LocalDateTime.now().format(formatter)
-		_currentTapa.value?.country = currentDate
+		_currentTapa.value?.date = currentDate
 	}
 
 	fun setRestaurant(restaurant: String) {
 		_currentTapa.value?.restaurant = restaurant
 	}
-	fun setUserRate(rate : Float){
-		_userRate.value = rate
+
+	fun setUserRate(rate: Float) {
+		_currentTapa.value!!.personalRate = rate
 	}
+
 	private fun encodeImage(imageBitmap: Bitmap?): String {
 		val baos = ByteArrayOutputStream()
 		imageBitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)

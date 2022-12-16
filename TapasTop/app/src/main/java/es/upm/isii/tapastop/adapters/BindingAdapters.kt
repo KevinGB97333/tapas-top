@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import es.upm.isii.tapastop.network.Tapas
 import es.upm.isii.tapastop.network.Users
 
 /**
@@ -51,12 +52,17 @@ fun bindVisibility(button: Button, already: Boolean) {
 /**
  * Updates the data shown in the [RecyclerView].
  */
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: Users?) {
+@BindingAdapter("listUser")
+fun bindRecyclerViewUser(recyclerView: RecyclerView, data: Users?) {
 	val adapter = recyclerView.adapter as UsersListAdapter
 	adapter.submitList(data?.users)
 }
 
+@BindingAdapter("listTapa")
+fun bindRecyclerViewTapa(recyclerView: RecyclerView, data : Tapas?){
+	val adapter = recyclerView.adapter as TapaListAdapter
+	adapter.submitList(data?.tapas)
+}
 /**
  * Updates the data shown in the [RecyclerView].
  */

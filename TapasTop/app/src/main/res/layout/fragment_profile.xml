@@ -73,7 +73,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     android:padding="6dp"
                     android:clipToPadding="false"
-                    listData="@{viewModel.friends}"
+                    listUser="@{viewModel.friends}"
                     tools:itemCount="4"
                     tools:visibility="gone"
                     tools:listitem="@layout/user_view_item"/>

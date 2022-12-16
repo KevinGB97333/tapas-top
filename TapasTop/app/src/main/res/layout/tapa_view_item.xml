@@ -16,7 +16,7 @@
             android:clipToPadding="false">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_profile_img"
+                android:id="@+id/tapa_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="20dp"
@@ -25,15 +25,15 @@
                 android:layout_centerVertical="true"
                 android:elevation="10dp"
                 android:clipToOutline="false"
-                tools:src="@drawable/tapa" />
+                tools:src="@drawable/tapa_placeholder" />
 
             <TextView
-                android:id="@+id/user_username"
+                android:id="@+id/tapa_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="40dp"
-                android:layout_toEndOf="@id/user_profile_img"
+                android:layout_toEndOf="@id/tapa_img"
                 android:fontFamily="@font/brandon_grotesque_bold_italic"
                 android:textSize="32sp"
                 android:textStyle="bold"

@@ -6,6 +6,9 @@
         <variable
             name="viewModel"
             type="es.upm.isii.tapastop.model.UserViewModel" />
+        <variable
+            name="tapaViewModel"
+            type="es.upm.isii.tapastop.model.TapaViewModel" />
     </data>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -35,7 +38,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/loading_layout"
+                android:id="@+id/loading_layout_users"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -67,7 +70,7 @@
                 android:clipToPadding="false"
                 android:padding="6dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:listData="@{viewModel.users}"
+                app:listUser="@{viewModel.users}"
                 tools:itemCount="4"
                 tools:listitem="@layout/user_view_item"/>
             <TextView
@@ -79,6 +82,7 @@
                 android:fontFamily="@font/brandon_grotesque_black"
                 android:textColor="@color/grey_400"
                 android:textSize="26sp"
+                android:visibility="gone"
                 tools:visibility="gone"/>
             <TextView
                 android:id="@+id/tapas_title"
@@ -90,6 +94,22 @@
                 android:fontFamily="@font/brandon_grotesque_black"
                 android:textColor="@color/grey_900"
                 android:layout_gravity="center_horizontal"/>
+            <RelativeLayout
+                android:id="@+id/loading_layout_tapas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/white_circle"
+                android:elevation="8dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:indeterminateTint="@color/grey_900"/>
+            </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tapas_list"
                 android:layout_width="match_parent"
@@ -97,7 +117,7 @@
                 android:clipToPadding="false"
                 android:padding="6dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:listData="@{viewModel.users}"
+                app:listTapa="@{tapaViewModel.tapas}"
                 tools:itemCount="4"
                 tools:listitem="@layout/tapa_view_item"/>
             <TextView
@@ -109,6 +129,7 @@
                 android:fontFamily="@font/brandon_grotesque_black"
                 android:textColor="@color/grey_400"
                 android:textSize="26sp"
+                android:visibility="gone"
                 tools:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

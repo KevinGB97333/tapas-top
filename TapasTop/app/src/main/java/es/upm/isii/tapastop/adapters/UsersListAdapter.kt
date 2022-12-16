@@ -3,7 +3,6 @@ package es.upm.isii.tapastop.adapters
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,7 @@ import es.upm.isii.tapastop.databinding.UserViewItemBinding
 import es.upm.isii.tapastop.model.UserViewModel
 import es.upm.isii.tapastop.network.UserSummary
 
-class UsersListAdapter(private var sharedViewModel: UserViewModel) :
+class UsersListAdapter(private val sharedViewModel: UserViewModel) :
 	ListAdapter<UserSummary, UsersListAdapter.UsersViewHolder>(DiffCallback) {
 
 	class UsersViewHolder(

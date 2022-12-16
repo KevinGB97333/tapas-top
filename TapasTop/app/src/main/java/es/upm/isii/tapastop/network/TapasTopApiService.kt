@@ -16,6 +16,7 @@ var mHttpLoggingInterceptor = HttpLoggingInterceptor()
 
 var mOkHttpClient = OkHttpClient
 	.Builder()
+	.addInterceptor(mHttpLoggingInterceptor)
 	.build()
 
 
@@ -56,11 +57,11 @@ interface TapasTopApiService {
 	@GET("users/getFriends/{uName}")
 	suspend fun getFriends(@Path("uName") username: String): Response<Users>
 
-	@GET("tastings/")
+	@GET("tasting")
 	suspend fun getTapaLike(@Query("search") searchString : String) : Response<Tapas>
 
-	@GET("tastings/{id}")
-	suspend fun  getTapa(@Path("id") tapaId : String) : Response<TapaResponse>
+	@GET("tasting/{id}")
+	suspend fun  getTapa(@Path("id") tapaId : Int, @Query("uName") username : String) : Response<TapaResponse>
 
 	@GET("restaurants")
 	suspend fun getRestaurants() : Response<Restaurants>
@@ -117,7 +118,7 @@ interface TapasTopApiService {
 	suspend fun changeTapaRate(
 		@Query("val") newRate: Float,
 		@Query("username") username: String,
-		@Query("id") tapaId: String
+		@Query("id") tapaId: Int
 	): Response<MessageResponse>
 
 	//DELETE

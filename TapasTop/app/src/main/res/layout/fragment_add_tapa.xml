@@ -38,7 +38,7 @@
                 <ImageView
                     android:id="@+id/tapa_img"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:layout_margin="20dp"
                     android:background="@drawable/border_image"
                     android:cropToPadding="true"
@@ -47,7 +47,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_add_tapa"
-                    tools:src="@drawable/tapa"/>
+                    android:src="@drawable/tapa_placeholder"/>
 
                 <TextView
                     android:id="@+id/tapa_img_hint"
@@ -71,7 +71,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tapa_img_hint"
-                    android:text="@{@string/your_rating_text(tapaViewModel.userRate)}"
                     tools:text="Your rate: 3.5" />
 
                 <RatingBar
@@ -84,6 +83,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tapa_rate"
+                    android:stepSize="1"
                     tools:rating="3.5" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -240,6 +240,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+        <RelativeLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/white_circle"
+            android:elevation="8dp"
+            android:visibility="gone"
+            >
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:indeterminateTint="@color/grey_900"/>
+
+        </RelativeLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_tapa"
             android:layout_width="wrap_content"

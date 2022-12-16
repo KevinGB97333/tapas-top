@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="tapaViewModel"
+            type="es.upm.isii.tapastop.model.TapaViewModel" />
+    </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -24,12 +29,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:text="@{tapaViewModel.currentTapa.name}"
                 tools:text="Tortilla de patata"/>
 
             <ImageView
                 android:id="@+id/tapa_img"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="400dp"
                 android:scaleType="centerCrop"
                 android:layout_margin="20dp"
                 android:padding="3dp"
@@ -38,7 +44,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@drawable/border_image"
                 app:layout_constraintTop_toBottomOf="@id/tapa_textview"
-                tools:src="@drawable/tapa"/>
+                app:imageBitmap="@{tapaViewModel.tapaImg}"
+                placeholder="@{@drawable/tapa_placeholder}"
+                tools:src="@drawable/tapa_placeholder"/>
             <TextView
                 android:id="@+id/tapa_average_rate"
                 android:layout_width="wrap_content"
@@ -83,6 +91,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tapa_rate"
+                android:stepSize="1"
                 tools:rating="3.5"/>
             <TextView
                 android:id="@+id/description_textview_title"
@@ -108,6 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description_textview_title"
+                android:text="@{tapaViewModel.currentTapa.description}"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin placerat mi eget magna volutpat convallis. Vivamus justo leo, accumsan ac vulputate vitae, gravida quis mauris." />
             <TextView
                 android:id="@+id/type_textview_title"
@@ -131,6 +141,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type_textview_title"
+                android:text="@{tapaViewModel.currentTapa.type}"
                 tools:text="Tortilla"/>
 
             <TextView
@@ -157,6 +168,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/taste_textview_title"
+                android:text="@{tapaViewModel.currentTapa.taste}"
                 tools:text="Sweet"/>
 
             <TextView
@@ -182,6 +194,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/region_textview_title"
+                android:text="@{tapaViewModel.currentTapa.region}"
                 tools:text="Europe"/>
             <TextView
                 android:id="@+id/country_textview_title"
@@ -206,6 +219,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/country_textview_title"
+                android:text="@{tapaViewModel.currentTapa.country}"
                 tools:text="Spain"/>
 
             <TextView
@@ -233,6 +247,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/restaurant_textview_title"
+                android:text="@{tapaViewModel.currentTapa.restaurant}"
                 tools:text="Bar Manolo"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

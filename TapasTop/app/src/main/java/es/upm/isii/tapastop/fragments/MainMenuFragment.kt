@@ -35,6 +35,8 @@ class MainMenuFragment : Fragment() {
 		_binding = FragmentMainMenuBinding.inflate(inflater, container, false)
 		val root = binding.root
 		viewProfileBtn = binding.viewProfileBtn
+		tapaSharedViewModel.resetStatus()
+		tapaSharedViewModel.resetTapa()
 		sharedViewModel.resetStatus()
 		sharedViewModel.getFriendRequestsUpdate()
 		sharedViewModel.getFriendsUpdate()

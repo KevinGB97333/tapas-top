@@ -7,7 +7,7 @@ data class TapaResponse(
 )
 
 data class Tapa(
-	@Json(name = "id") var id : String,
+	@Json(name = "id") var id : Int,
 	@Json(name = "photo") var photo : String,
 	@Json(name = "name") var name : String,
 	@Json(name = "description") var description : String,
@@ -18,5 +18,6 @@ data class Tapa(
 	@Json(name = "taste") var taste : String,
 	@Json(name = "date") var date : String,
 	@Json(name = "restaurant") var restaurant : String,
-	@Json(name ="average") var averageRate : Float
+	@Json(name ="average") var averageRate : Float,
+	@Json(name="personal rating") var personalRate : Float
 )
