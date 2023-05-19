@@ -12,7 +12,7 @@
    - [X] Display request list
    - [X] Send verification code
    - [X] Recover password
-   - [ ] Add tapa
-   - [ ] Rate tapa
-   - [ ] Edit rate
+   - [X] Add tapa
+   - [X] Rate tapa
+   - [X] Edit rate
  
